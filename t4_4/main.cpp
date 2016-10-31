@@ -12,9 +12,11 @@ int convertToNumber(char number)
 
 int performOperation(char operation, int number1, int number2)
 {
+    //number2 stays before number1 in infix notation
+
     switch (operation) {
     case '-':
-        return number1 - number2;
+        return number2 - number1;
         break;
     case '+':
         return number1 + number2;
@@ -23,7 +25,7 @@ int performOperation(char operation, int number1, int number2)
         return number1 * number2;
         break;
     case '/':
-        return number1 / number2;
+        return number2 / number1;
         break;
     default:
         return INT_MIN;
