@@ -1,0 +1,13 @@
+
+*.pro
+*.user
+*.txt
+*.zip
+*.Debug
+*.Release
+*.exe
+
+Makefile
+
+debug/*
+release/*
