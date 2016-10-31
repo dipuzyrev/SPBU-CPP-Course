@@ -1,39 +1,54 @@
 #include <iostream>
 #include <fstream>
-#include <string.h>
 
 using namespace std;
 
-void clearSymbols(char symbols[])
+int getWordLength(char word[], int size)
 {
     int i = 0;
-    while (symbols[i] != '\0')
-    {
-        symbols[i] = '\0';
+
+    while (i < size && word[i] != '\0')
         i++;
-    }
+
+    return i;
 }
 
-bool isPrinted(char s, char symbols[], int length)
+void clearWord(char word[], int &length)
 {
-    int i = 0;
-    while (symbols[i] != '\0' && i < length)
-    {
-        if (symbols[i] == s)
+    for (int i = 0; i < length; i++)
+        word[i] = '\0';
+
+    length = 0;
+}
+
+bool exist(char s, char newWord[], int newWordLength)
+{
+    for (int i = 0; i < newWordLength; i++)
+        if (newWord[i] == s)
             return true;
-        i++;
-    }
+
     return false;
 }
 
-
-void printed(char s, char symbols[], int length)
+void markAsPrinted(char s, char newWord[], int &newWordLength)
 {
     int i = 0;
-    while (symbols[i] != '\0' && i < length)
+
+    while (i < newWordLength)
         i++;
-    if (i < length)
-        symbols[i] = s;
+
+    newWord[i] = s;
+    newWordLength++;
+}
+
+bool isLetter(char s)
+{
+    char notLetters[12] = {'.', '-', '!', '?', ',', '_', ':', '(', ')', '=', '<', '>'};
+
+    if (exist(s, notLetters, 12))
+        return false;
+    else
+        return true;
 }
 
 int main()
@@ -46,36 +61,33 @@ int main()
         return 0;
     }
 
-    char symbols[34] = {'\0'};
-    char lastSymbol = '\0';
+    int const maxSize = 1024;
+    char word[maxSize] = {'\0'};
+    char newWord[maxSize] = {'\0'};
+    int wordLength = 0;
+    int newWordLength = 0;
 
-    const int length = 1024;
-    char string[length] = {'\0'};
-
-    while (fin.getline(string, length))
+    while (!fin.eof())
     {
-        int strLength = strlen(string);
-        for (int i = 0; i < strLength; i++)
+        fin >> word;
+        wordLength = getWordLength(word, maxSize);
+
+        for (int i = 0; i < wordLength; i++)
         {
-            if (string[i] == ' ')
+            if (!exist(word[i], newWord, newWordLength) && //if letter printed - we shouldn't print it
+                !(!isLetter(word[i]) && (i == wordLength - 1 || i == 0) )) //if symbol isn't letter and it is first/last symbol - we shouldn't print it
             {
-                clearSymbols(symbols);
-                if (lastSymbol != '\0')
-                    printf(" ");
+                cout << word[i];
+                markAsPrinted(word[i], newWord, newWordLength);
             }
-            else
-            {
-                if(!isPrinted(string[i], symbols, length))
-                {
-                    printf("%c", string[i]);
-                    printed(string[i], symbols, length);
-                }
-            }
-            lastSymbol = string[i];
         }
+
+        cout << endl;
+        clearWord(word, wordLength);
+        clearWord(newWord, newWordLength);
     }
 
-    cout << endl << endl; //formatting output
+    cout << endl << endl; //some formatting
     fin.close();
     return 0;
 }
