@@ -36,7 +36,7 @@ bool isEmpty(List *l)
 }
 
 //addValue:
-//returns 0 - value added, 1 - value alredy in the list
+//returns 0 - value added, 1 - value already in the list
 int addValue(List *l, int value)
 {
     if (isEmpty(l))
