@@ -9,7 +9,5 @@
 
 Makefile
 
-release/*
-debug/*
-Debug/*
-DEBUG/*
+*/release/*
+*/debug/*
