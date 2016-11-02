@@ -6,6 +6,7 @@
 *.Debug
 *.Release
 *.exe
+*.qmake.stash
 
 Makefile
 
