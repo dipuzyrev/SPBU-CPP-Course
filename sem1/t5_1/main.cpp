@@ -16,14 +16,14 @@ void performCommand(List *list, int commandNumber)
     switch (commandNumber) {
     case 1:
     {
-        int v = 0;
+        int value = 0;
         cout << "Input value to add: ";
-        cin >> v;
-        int result = addValue(list, v);
+        cin >> value;
+        int result = addValue(list, value);
         if (result == 0)
-            cout << "Value (" << v << ") was added" << endl;
+            cout << "Value (" << value << ") was added" << endl;
         else if (result == 1)
-            cout << "Value (" << v << ") already exist" << endl;
+            cout << "Value (" << value << ") already exist" << endl;
         break;
     }
     case 2:
