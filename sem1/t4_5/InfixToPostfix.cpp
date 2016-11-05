@@ -106,8 +106,8 @@ void convertToPostfix(char *infixExpression, char *postfixExpression, int maxLen
         handleToken(currentTocken, operators, postfixExpression, maxLength);
     }
 
-
     addRestOperators(operators, postfixExpression, maxLength);
+    delete operators;
 }
 
 void outputPostfix(char *postfixExpression)

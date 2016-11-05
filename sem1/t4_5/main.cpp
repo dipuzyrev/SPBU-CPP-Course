@@ -17,7 +17,7 @@ int getCharLength(char str[], int maxLength)
 
 int convertToNumber(char number)
 {
-    int result = number - 48; //ASCII codes: 48:0, 49:1, 50:2 ... 57:9
+    int result = number - '0';
     return result;
 }
 
@@ -74,6 +74,9 @@ int main()
 
     int result = pop(operands);
     cout << "Result: " << result << endl;
+
+    clearStack(operands);
+    delete operands;
 
     return 0;
 }
