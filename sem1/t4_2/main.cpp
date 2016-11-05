@@ -44,11 +44,7 @@ void markAsPrinted(char s, char newWord[], int &newWordLength)
 bool isLetter(char s)
 {
     char notLetters[12] = {'.', '-', '!', '?', ',', '_', ':', '(', ')', '=', '<', '>'};
-
-    if (exist(s, notLetters, 12))
-        return false;
-    else
-        return true;
+    return !exist(s, notLetters, 12);
 }
 
 int main()
@@ -57,7 +53,7 @@ int main()
 
     if (fin.fail())
     {
-        printf("File doesn't open! Please, title your file \"input.txt\" and try again.\n");
+        cout << "Input file not exist!" << endl;
         return 0;
     }
 
@@ -82,12 +78,12 @@ int main()
             }
         }
 
-        cout << endl;
+        cout << " ";
         clearWord(word, wordLength);
         clearWord(newWord, newWordLength);
     }
 
-    cout << endl << endl; //some formatting
     fin.close();
+    cout << endl;
     return 0;
 }
