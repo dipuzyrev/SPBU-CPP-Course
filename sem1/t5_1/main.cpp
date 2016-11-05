@@ -50,7 +50,7 @@ int const commandNum(char *commandTitle, int length)
 void performCommand(List *list, int commandNumber)
 {
 
-    if (commandNumber = commandNum("add value to list", 17))
+    if (commandNumber == commandNum("add value to list", 17))
     {
         int value = 0;
         cout << "Input value to add: ";
@@ -61,7 +61,7 @@ void performCommand(List *list, int commandNumber)
         else if (result == errorNum("Value already exist", 19))
             cout << "Value (" << value << ") already exist" << endl;
     }
-    else if (commandNumber = commandNum("remove value from list", 22))
+    else if (commandNumber == commandNum("remove value from list", 22))
     {
         int value = 0;
         cout << "Input value to remove: ";
@@ -74,7 +74,7 @@ void performCommand(List *list, int commandNumber)
         else if (result == errorNum("List empty", 10))
             cout << "List is empty" << endl;
     }
-    else if (commandNumber = commandNum("print list", 10))
+    else if (commandNumber == commandNum("print list", 10))
         printList(list);
 }
 
