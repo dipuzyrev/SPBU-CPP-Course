@@ -7,9 +7,8 @@
 *.Release
 *.exe
 *.qmake.stash
-
 Makefile
 
-*/release/*
-*/debug/*
-*/.gitignore
+*/*/release/*
+*/*/debug/*
+*/*/.gitignore
