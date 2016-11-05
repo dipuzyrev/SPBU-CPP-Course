@@ -72,5 +72,7 @@ int main()
         command = getCommand();
     }
 
+    clearList(list);
+    delete list;
     return 0;
 }
