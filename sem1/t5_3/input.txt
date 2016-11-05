@@ -1,0 +1,13 @@
+// comment
+//another comment
+
+/*
+
+// this comment extra
+*/
+
+/* //and this too */
+
+This is no //comment
+
+//  it is comment!
