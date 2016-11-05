@@ -17,3 +17,5 @@ void printList(List *l);
 //clearList:
 //returns 0 - list saccessfully cleared, 1 - list empty
 int clearList(List *l);
+
+int errorNum(char *errorTitle, int lenght);

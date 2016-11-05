@@ -3,6 +3,8 @@
 
 using namespace std;
 
+
+
 void printInstructions()
 {
     cout << "0: exit" << endl;
@@ -21,22 +23,22 @@ void performCommand(List *list, int commandNumber)
         cin >> value;
         int result = addValue(list, value);
         if (result == 0)
-            cout << "Value (" << value << ") was added" << endl;
-        else if (result == 1)
+            cout << "Value (" << value << ") added" << endl;
+        else if (result == errorNum("Value already exist", 19))
             cout << "Value (" << value << ") already exist" << endl;
         break;
     }
     case 2:
     {
-        int v = 0;
+        int value = 0;
         cout << "Input value to remove: ";
-        cin >> v;
-        int result = removeValue(list, v);
+        cin >> value;
+        int result = removeValue(list, value);
         if (result == 0)
-            cout << "Value (" << v << ") was removed" << endl;
-        else if (result == 1)
-            cout << "Value (" << v << ") doesn't exist" << endl;
-        else if (result == 2)
+            cout << "Value (" << value << ") was removed" << endl;
+        else if (result == errorNum("Value doesn't exist", 19))
+            cout << "Value (" << value << ") doesn't exist" << endl;
+        else if (result == errorNum("List empty", 10))
             cout << "List is empty" << endl;
         break;
     }
