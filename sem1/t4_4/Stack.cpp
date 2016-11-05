@@ -57,3 +57,22 @@ char top(Stack *s)
     else
         return s->top->value;
 }
+
+void clearStack(Stack *s)
+{
+    if (isEmpty(s))
+        return;
+
+    StackElement *temp = s->top;
+    s->top = nullptr;
+    s->size = 0;
+
+    while (temp->next != nullptr)
+    {
+        StackElement *toDelete = temp;
+        temp = temp->next;
+        delete toDelete;
+    }
+
+    delete temp;
+}
