@@ -1,7 +1,7 @@
 
 *.pro
 *.user
-
+*.directory
 *.zip
 *.Debug
 *.Release
