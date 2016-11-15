@@ -37,16 +37,15 @@ bool defineFinalMultState(char line[], int posFrom, int length, bool &multOpened
     return multOpened;
 }
 
-//handleLine:
-//returns: 0 - one-line comment, should print
-//         1 - comment inside multiline comment or line, or it isn't comment
-int handleLine(char line[], int length, bool &multOpened)
+bool handleLine(char line[], int length, bool &multOpened)
 {
-    if (!multOpened && line[0] == '/' && line[1] == '/')
-        return 0;
+    if (!multOpened)
+    	for (int i = 0; i < length - 1; i++)
+    		if (line[i] == '/' && line[i + 1] == '/')
+        		return true;
 
     defineFinalMultState(line, 0, length, multOpened);
-    return 1;
+    return false;
 }
 
 int main()
@@ -62,10 +61,9 @@ int main()
     {
         fin.getline(line, maxSize);
         int length = getStrLength(line, maxSize);
-        //cout << line << " (length) " << length << endl;
 
         int result = handleLine(line, length, multilineCommentsOpened);
-        if (result == 0)
+        if (result)
             cout << line << endl;
     }
 

@@ -8,6 +8,6 @@
 
 /* //and this too */
 
-This is no //comment
+This is //comment
 
 //  it is comment!
