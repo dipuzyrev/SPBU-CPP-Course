@@ -36,67 +36,33 @@ bool isEmpty(List *l)
     return l->size == 0;
 }
 
-bool compareStrings(char *str1, char *str2, int length1, int length2)
-{
-    if (length1 != length2)
-        return false;
-
-    for (int i = 0; i < length1; i++)
-        if (str1[i] != str2[i])
-            return false;
-
-    return true;
-}
-
-int errorNum(char *errorTitle, int length)
-{
-    char error1[] = "List empty";
-    char error2[] = "Value doesn't exist";
-    char error3[] = "Value already exist";
-
-    int const length1 = 10;
-    int const length2 = 19;
-    int const length3 = 19;
-
-    if (compareStrings(errorTitle, error1, length, length1))
-        return 1;
-    else if (compareStrings(errorTitle, error2, length, length2))
-        return 2;
-    else if (compareStrings(errorTitle, error3, length, length3))
-        return 3;
-    else
-        return -1;
-}
-
-//addValue:
-//returns 0 - value added, 1 - value already in the list
-int addValue(List *l, int value)
+bool addValue(List *l, int value)
 {
     if (isEmpty(l))
     {
         l->head = createListItem(value, nullptr);
         l->size++;
-        return 0;
+        return true;
     }
 
     if (l->head->value > value)
     {
         l->head = createListItem(value, l->head);
         l->size++;
-        return 0;
+        return true;
     }
 
     if (l->head->next == nullptr)
     {
         if (l->head->value == value)
-            return errorNum("Value already exist", 19);
+            return false;
         else if (l->head->value < value)
             l->head->next = createListItem(value, nullptr);
         else
             l->head = createListItem(value, l->head);
 
         l->size++;
-        return 0;
+        return true;
     }
 
     ListItem *temp = l->head;
@@ -106,7 +72,7 @@ int addValue(List *l, int value)
     if (temp->next->next == nullptr)
     {
         if (temp->next->value == value)
-            return errorNum("Value already exist", 19);
+            return false;
         else
         {
             if (temp->next->value < value)
@@ -115,25 +81,23 @@ int addValue(List *l, int value)
                 temp->next = createListItem(value, temp->next);
 
             l->size++;
-            return 0;
+            return true;
         }
     }
     else if (temp->next->value == value)
-        return errorNum("Value already exist", 19);
+        return false;
     else
     {
         temp->next = createListItem(value, temp->next);
         l->size++;
-        return 0;
+        return true;
     }
 }
 
-//removeValue:
-//returns 0 - value removed, 1 - value isn't in the list, 2 - list empty
-int removeValue(List *l, int value)
+bool removeValue(List *l, int value)
 {
     if (isEmpty(l))
-        return errorNum("List empty", 10);
+        return false;
 
     if (l->head->next == nullptr)
     {
@@ -143,10 +107,10 @@ int removeValue(List *l, int value)
             l->head = nullptr;
             delete toDelete;
             l->size--;
-            return 0;
+            return true;
         }
         else
-            return errorNum("Value doesn't exist", 19);
+            return false;
     }
 
     ListItem *temp = l->head;
@@ -168,11 +132,11 @@ int removeValue(List *l, int value)
     }
     else if (temp->next->next == nullptr)
     {
-        return errorNum("Value doesn't exist", 19);
+        return false;
     }
 
     l->size--;
-    return 0;
+    return true;
 }
 
 void printList(List *l)
@@ -191,12 +155,10 @@ void printList(List *l)
     }
 }
 
-//clearList:
-//returns 0 - list saccessfully cleared, 1 - list empty
-int clearList(List *l)
+bool clearList(List *l)
 {
     if (isEmpty(l))
-        return errorNum("List empty", 10);
+        return false;
 
     ListItem *toDelete = l->head;
 
@@ -208,5 +170,5 @@ int clearList(List *l)
     }
 
     l->size = 0;
-    return 0;
+    return true;
 }

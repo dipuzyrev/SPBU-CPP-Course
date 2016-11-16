@@ -4,18 +4,7 @@ struct List;
 
 List *createList();
 
-//addValue:
-//returns 0 - value added, 1 - value already in the list
-int addValue(List *l, int value);
-
-//removeValue:
-//returns 0 - value removed, 1 - value isn't in the list, 2 - list empty
-int removeValue(List *l, int value);
-
+bool addValue(List *l, int value);
+bool removeValue(List *l, int value);
 void printList(List *l);
-
-//clearList:
-//returns 0 - list saccessfully cleared, 1 - list empty
-int clearList(List *l);
-
-int errorNum(char *errorTitle, int lenght);
+bool clearList(List *l);
