@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "List.h"
+#include "Phonebook.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ void printInstructions()
     cout << "4: save data in file" << endl << endl;
 }
 
-void performCommand(List *list, int commandNumber)
+void performCommand(List *list, int commandNumber, char const *fileName)
 {
     switch (commandNumber)
     {
@@ -26,9 +27,9 @@ void performCommand(List *list, int commandNumber)
             char *telephone = createStr(64);
             cin >> telephone;
             int result = addValue(list, name, telephone);
-            if (result == 0)
-                cout << "Entry was added" << endl << endl;
-            else if (result == 1)
+            if (result)
+                cout << "Entry added" << endl << endl;
+            else
                 cout << "Telephone (" << telephone << ") already exist" << endl << endl;
             break;
         }
@@ -58,7 +59,7 @@ void performCommand(List *list, int commandNumber)
         }
         case 4:
         {
-            saveDataToFile(list);
+            saveDataToFile(fileName, list);
             cout << "Data saved to file" << endl << endl;
             break;
         }
@@ -68,7 +69,7 @@ void performCommand(List *list, int commandNumber)
 int getCommand()
 {
     int command = 0;
-    cout << endl << "Input your command: ";
+    cout << "Input your command: ";
     cin >> command;
 
     if (command > 4 || command < 0)
@@ -82,8 +83,9 @@ int getCommand()
 
 int main()
 {
+    char const *fileName = "phonebook.txt";
     List *phonebook = createList();
-    loadDataFromFile(phonebook);
+    loadDataFromFile(fileName, phonebook);
 
     printInstructions();
 
@@ -91,9 +93,12 @@ int main()
 
     while (command != 0)
     {
-        performCommand(phonebook, command);
+        performCommand(phonebook, command, fileName);
         command = getCommand();
     }
+
+    clearList(phonebook);
+    delete phonebook;
 
     return 0;
 }

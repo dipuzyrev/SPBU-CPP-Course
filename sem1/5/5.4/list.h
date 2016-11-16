@@ -3,14 +3,13 @@
 struct List;
 
 List *createList();
+
+bool isEmpty(List *l);
 char *createStr(int length);
-
-//addValue:
-//returns 0 - value added, 1 - value already in the list
-int addValue(List *l, char *name, char *telephone);
-
+bool addValue(List *l, char *name, char *telephone);
 char *findByName(List *l, char *name);
 char *findByTelephone(List *l, char *telephone);
-
-void loadDataFromFile(List *l);
-void saveDataToFile(List *l);
+char *getHeadName(List *l);
+char *getHeadTelephone(List *l);
+void deleteHead(List *l);
+void clearList(List *l);

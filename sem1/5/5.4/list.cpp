@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "List.h"
 
 using namespace std;
 
@@ -16,12 +17,31 @@ struct List
     int size;
 };
 
+char *createStr(int length)
+{
+    char *str = new char[length];
+
+    for (int i = 0; i < length; i++)
+        str[i] = '\0';
+    return str;
+}
+
 ListItem *createListItem(char *name, char *telephone, ListItem *next)
 {
     ListItem *newItem = new ListItem;
     newItem->next = next;
-    newItem->name = name;
-    newItem->telephone = telephone;
+
+    char *newName = createStr(64);
+    char *newTelephone = createStr(64);
+
+    for (int i = 0; i < 64; i++)
+    {
+        newName[i] = name[i];
+        newTelephone[i] = telephone[i];
+    }
+
+    newItem->name = newName;
+    newItem->telephone = newTelephone;
     return newItem;
 }
 List *createList()
@@ -30,15 +50,6 @@ List *createList()
     newList->head = nullptr;
     newList->size = 0;
     return newList;
-}
-
-char *createStr(int length)
-{
-    char *str = new char[length];
-
-    for (int i = 0; i < length; i++)
-        str[i] = '\0';
-    return str;
 }
 
 bool isEmpty(List *l)
@@ -54,16 +65,14 @@ bool compareCharacters(char *str1, char *str2)
     return true;
 }
 
-//addValue:
-//returns 0 - value added, 1 - value already in the list
-int addValue(List *l, char *name, char *telephone)
+bool addValue(List *l, char *name, char *telephone)
 {
     if (isEmpty(l))
     {
         ListItem *newItem = createListItem(name, telephone, nullptr);
         l->head = newItem;
         l->size++;
-        return 0;
+        return true;
     }
 
     ListItem *temp = l->head;
@@ -72,13 +81,13 @@ int addValue(List *l, char *name, char *telephone)
         temp = temp->next;
 
     if (compareCharacters(temp->telephone, telephone))
-        return 1;
+        return false;
     else
     {
         ListItem *newItem = createListItem(name, telephone, nullptr);
         temp->next = newItem;
         l->size++;
-        return 0;
+        return true;
     }
 }
 
@@ -118,76 +127,46 @@ char *findByTelephone(List *l, char *telephone)
         return temp->name;
 }
 
-void loadDataFromFile(List *l)
+char *getHeadName(List *l)
 {
-    ifstream fin("phonebook.txt");
+    if (isEmpty(l))
+        return '\0';
+    else
+        return l->head->name;
+}
 
-    if (!fin.is_open())
+char *getHeadTelephone(List *l)
+{
+    if (isEmpty(l))
+        return '\0';
+    else
+        return l->head->telephone;
+}
+
+void deleteHead(List *l)
+{
+    if (!isEmpty(l))
+    {
+        ListItem *toDelete = l->head;
+        l->head = l->head->next;
+        l->size--;
+        delete toDelete;
+    }
+}
+
+void clearList(List *l)
+{
+    if (isEmpty(l))
         return;
 
-    char *name = createStr(64);
-    char *telephone = createStr(64);
-
-    fin >> name;
-    fin >> telephone;
-
-    if (name[0] != '\0' && telephone[0] != '\0')
-    {
-        l->head = createListItem(name, telephone, nullptr);
-        l->size++;
-    }
-
     ListItem *temp = l->head;
 
-    fin >> name;
-    fin >> telephone;
-
-    while (!fin.eof())
+    while (temp->next != nullptr)
     {
-        temp->next = createListItem(name, telephone, nullptr);
-        l->size++;
+        ListItem *toDelete = temp;
         temp = temp->next;
-        fin >> name;
-        fin >> telephone;
+        delete toDelete->name;
+        delete toDelete->telephone;
+        delete toDelete;
     }
-
-    fin.close();
 }
-
-void saveDataToFile(List *l)
-{
-    ofstream fout("phonebook.txt");
-
-    ListItem *temp = l->head;
-
-    while (temp != nullptr)
-    {
-        fout << temp->name << endl;
-        fout << temp->telephone << endl;
-
-        temp = temp->next;
-    }
-
-    fout.close();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
