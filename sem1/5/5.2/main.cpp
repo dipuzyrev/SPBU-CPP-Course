@@ -13,20 +13,23 @@ int main()
     cin >> m;
 
     int k = 0;
-    CycleList *list = createList();
+    CycleList *warriors = createList();
 
     for (int i = 0; i < n; i++)
-        addValue(list, i + 1);
+        addValue(warriors, i + 1);
 
     for (int i = 0; i < n - 1; i++)
     {
-        movePointer(list, m - 1);
-        removeCurrentPointerValue(list);
+        movePointer(warriors, m - 1);
+        removeCurrentPointerValue(warriors);
     }
 
-    k = getCurrentPointerValue(list);
+    k = getCurrentPointerValue(warriors);
 
     cout << "Warrior on " << k << "-th position will live!" << endl << endl;
+
+    clearList(warriors);
+    delete warriors;
 
     return 0;
 }

@@ -60,77 +60,46 @@ ListItem *getLastItem(CycleList *l)
     }
 }
 
-//addValue:
-//returns 0 - value added, 1 - value already in the list
-int addValue(CycleList *l, int value)
+bool addValue(CycleList *l, int value)
 {
     if (isEmpty(l))
     {
         l->head = createListItem(value, nullptr);
         l->head->next = l->head;
         l->size++;
-        return 0;
+        return true;
     }
 
-    if (l->head->value > value)
+    if (value == l->head->value)
+        return false;
+
+    if (value < l->head->value)
     {
         ListItem *lastItem = getLastItem(l);
-        l->head = createListItem(value, nullptr);
-        l->head->next = l->head;
+        l->head = createListItem(value, l->head);
         lastItem->next = l->head;
         l->size++;
-        return 0;
-    }
-
-    if (l->head->next->value == l->head->value)
-    {
-        if (l->head->value == value)
-            return 1;
-        else if (l->head->value < value)
-            l->head->next = createListItem(value, l->head);
-
-        l->size++;
-        return 0;
+        return true;
     }
 
     ListItem *temp = l->head;
-    while (temp->next->next != l->head && temp->next->value < value)
+    while (temp->value < temp->next->value && value > temp->next->value)
         temp = temp->next;
 
-    if (temp->next->next == l->head)
-    {
-        if (temp->next->value == value)
-            return 1;
-        else
-        {
-            if (temp->next->value < value)
-            {
-                temp->next->next = createListItem(value, nullptr);
-                temp->next->next->next = l->head;
-            }
-            else if (temp->next->value > value)
-                temp->next = createListItem(value, temp->next);
-
-            l->size++;
-            return 0;
-        }
-    }
-    else if (temp->next->value == value)
-        return 1;
+    if (value == temp->next->value)
+        return false;
     else
     {
         temp->next = createListItem(value, temp->next);
         l->size++;
-        return 0;
+        return true;
     }
 }
 
-//clearList:
-//returns 0 - list saccessfully cleared, 1 - list empty
-int clearList(CycleList *l)
+bool clearList(CycleList *l)
 {
     if (isEmpty(l))
-        return 1;
+        return false;
 
     ListItem *toDelete = l->head;
 
@@ -154,18 +123,16 @@ int clearList(CycleList *l)
     l->head = nullptr;
     l->pointer = nullptr;
 
-    return 0;
+    return true;
 }
 
-//removeCurrentPointerValue:
-//returns 0 - value removed, 1 - list empty, 2 - pointer = nullptr
 int removeCurrentPointerValue(CycleList *l)
 {
     if (l->pointer == nullptr)
-        return 2;
+        return false;
 
     if (isEmpty(l))
-        return 1;
+        return false;
 
     if (l->head->next->value == l->head->value)
     {
@@ -173,7 +140,7 @@ int removeCurrentPointerValue(CycleList *l)
         l->head = nullptr;
         l->size = 0;
         l->pointer = nullptr;
-        return 0;
+        return true;
     }
 
     ListItem *temp = l->head;
@@ -199,7 +166,7 @@ int removeCurrentPointerValue(CycleList *l)
     }
 
     l->size--;
-    return 0;
+    return true;
 }
 
 void movePointer(CycleList *l, int m)
