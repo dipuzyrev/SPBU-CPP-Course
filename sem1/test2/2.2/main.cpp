@@ -97,6 +97,7 @@ int main()
 
     cout << "Minimal date: " << minDate << endl;
 
+    delete[] fileName;
     fin.close();
     return 0;
 }
