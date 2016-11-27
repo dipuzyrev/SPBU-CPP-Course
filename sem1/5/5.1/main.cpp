@@ -3,6 +3,14 @@
 
 using namespace std;
 
+enum Command
+{
+    exitCommand = 0,
+    addCommand = 1,
+    removeCommand = 2,
+    printCommand = 3
+};
+
 void printInstructions()
 {
     cout << "0: exit" << endl;
@@ -11,10 +19,10 @@ void printInstructions()
     cout << "3: print list" << endl;
 }
 
-void performCommand(List *list, int commandNumber)
+void performCommand(List *list, int command)
 {
 
-    if (commandNumber == 1)
+    if (command == addCommand)
     {
         int value = 0;
         cout << "Input value to add: ";
@@ -25,7 +33,7 @@ void performCommand(List *list, int commandNumber)
         else
             cout << "Value (" << value << ") already exist" << endl;
     }
-    else if (commandNumber == 2)
+    else if (command == removeCommand)
     {
         int value = 0;
         cout << "Input value to remove: ";
@@ -36,7 +44,7 @@ void performCommand(List *list, int commandNumber)
         else
             cout << "Value (" << value << ") not removed" << endl;
     }
-    else if (commandNumber == 3)
+    else if (command == printCommand)
         printList(list);
 }
 
@@ -46,7 +54,7 @@ int getCommand()
     cout << endl << "Input your command: ";
     cin >> command;
 
-    if (command > 3 || command < 0)
+    if (command != exitCommand && command != addCommand && command != removeCommand && command != printCommand)
         return 0;
     else
         return command;
@@ -60,7 +68,7 @@ int main()
 
     int command = getCommand();
 
-    while (command != 0)
+    while (command != exitCommand)
     {
         performCommand(list, command);
         command = getCommand();
