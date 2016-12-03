@@ -1,3 +1,4 @@
+#include "CycleList.h"
 
 struct ListItem
 {

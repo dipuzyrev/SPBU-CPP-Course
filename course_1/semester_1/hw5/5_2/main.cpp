@@ -1,5 +1,5 @@
 #include <iostream>
-#include "cyclelist.h"
+#include "CycleList.h"
 
 using namespace std;
 
