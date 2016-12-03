@@ -3,6 +3,17 @@
 
 using namespace std;
 
+enum Command
+{
+    exitCommand = 0,
+    addValueCommand = 1,
+    removeValueCommand = 2,
+    checkValueCommand = 3,
+    printInAscendingCommand = 4,
+    printInDescendingCommand = 5,
+    printStructureCommand = 6
+};
+
 void performAutomaticTest()
 {
     BinaryTree *bsw = create();
@@ -16,86 +27,89 @@ void performAutomaticTest()
     addValue(7, bsw);
     addValue(8, bsw);
     addValue(9, bsw);
-    addValue(10, bsw);
-    addValue(11, bsw);
-    addValue(12, bsw);
-    addValue(13, bsw);
-
-//    cout << "In ascending: ";
-//    print(1, bsw);
-
-//    cout << endl << "In descending: ";
-//    print(2, bsw);
 
     cout << endl << "Detail structure: ";
     print(3, bsw);
 
-    cout << endl << "Delete value 15 and print in ascending: ";
-    deleteValue(15, bsw);
-    print(1, bsw);
-
-    cout << endl << "Is value 15 in tree?: ";
-    if (contains(15, bsw))
-        cout << "YES";
-    else
-        cout << "NO";
-
-    cout << endl << "Clear tree and print in detail structure: ";
-    clear(bsw);
+    cout << endl << "Delete value 4 and print structure: ";
+    deleteValue(4, bsw);
     print(3, bsw);
-    cout << endl;
+
+    cout << endl << endl;
+
+    clear(bsw);
+    delete bsw;
 }
 
 void printInstructions()
 {
-    cout << "0: exit" << endl;
-    cout << "1: add a value to binary tree" << endl;
-    cout << "2: remove value from binary tree" << endl;
-    cout << "3: check if value contains in tree" << endl;
-    cout << "4: print binary tree" << endl;
+    cout << exitCommand << ": exit" << endl;
+    cout << addValueCommand << ": add a value to binary tree" << endl;
+    cout << removeValueCommand << ": remove value from binary tree" << endl;
+    cout << checkValueCommand << ": check if value contains in tree" << endl;
+    cout << printInAscendingCommand << ": print in ascending" << endl;
+    cout << printInDescendingCommand << ": print in descending" << endl;
+    cout << printStructureCommand << ": print structure" << endl;
 }
 
 void performCommand(BinaryTree *bsw, int commandNumber)
 {
-    if (commandNumber == 1)
+    switch (commandNumber)
     {
-        int value = 0;
-        cout << "Input value to add: ";
-        cin >> value;
-        addValue(value, bsw);
+        case addValueCommand:
+        {
+            int value = 0;
+            cout << "Input value to add: ";
+            cin >> value;
+            addValue(value, bsw);
+            break;
+        }
+        case removeValueCommand:
+        {
+            int value = 0;
+            cout << "Input value to remove: ";
+            cin >> value;
+            bool result = deleteValue(value, bsw);
+            if (result)
+                cout << "Value (" << value << ") removed" << endl;
+            else
+                cout << "Value (" << value << ") not found" << endl;
+            break;
+        }
+        case checkValueCommand:
+        {
+            int value = 0;
+            cout << "Input value to check: ";
+            cin >> value;
+            bool result = contains(value, bsw);
+            if (result)
+                cout << "Value (" << value << ") contains in tree" << endl;
+            else
+                cout << "Value (" << value << ") not found" << endl;
+            break;
+        }
+        case printInAscendingCommand:
+        {
+            print(1, bsw);
+            cout << endl;
+            break;
+        }
+        case printInDescendingCommand:
+        {
+            print(2, bsw);
+            cout << endl;
+            break;
+        }
+        case printStructureCommand:
+        {
+            print(3, bsw);
+            cout << endl;
+            break;
+        }
+        default:
+            cout << "Uncorrect command! To exit input 0" << endl;
+            break;
     }
-    else if (commandNumber == 2)
-    {
-        int value = 0;
-        cout << "Input value to remove: ";
-        cin >> value;
-        bool result = deleteValue(value, bsw);
-        if (result)
-            cout << "Value (" << value << ") removed" << endl;
-        else
-            cout << "Value (" << value << ") not found" << endl;
-    }
-    else if (commandNumber == 3)
-    {
-        int value = 0;
-        cout << "Input value to check: ";
-        cin >> value;
-        bool result = contains(value, bsw);
-        if (result)
-            cout << "Value (" << value << ") contains in tree" << endl;
-        else
-            cout << "Value (" << value << ") not found" << endl;
-    }
-    else if (commandNumber == 4)
-    {
-        int flag = 1;
-        cout << "1) in ascending order / 2) in descending order / 3) overall structure : ";
-        cin >> flag;
-        print(flag, bsw);
-        cout << endl;
-    }
-    else if (commandNumber == -1)
-        cout << "Uncorrect command! To exit input 0" << endl;
 }
 
 int getCommand()
@@ -104,7 +118,9 @@ int getCommand()
     cout << endl << "Input your command: ";
     cin >> command;
 
-    if (command > 4 || command < 0)
+    if (command != exitCommand && command != addValueCommand && command != removeValueCommand &&
+        command != checkValueCommand && command != printInAscendingCommand && command != printInDescendingCommand &&
+        command != printStructureCommand)
         return -1;
     else
         return command;
@@ -119,7 +135,7 @@ int main()
     printInstructions();
     int command = getCommand();
 
-    while (command != 0)
+    while (command != exitCommand)
     {
         performCommand(bsw, command);
         command = getCommand();

@@ -21,7 +21,6 @@ Node *createNode(int value)
     return newNode;
 }
 
-
 struct BinaryTree
 {
     Node *root;
@@ -103,19 +102,19 @@ Node* balance(Node* p)
     return p;
 }
 
-Node *recursiveAddValue(int value, Node *parentNode)
+Node *addValueToNode(int value, Node *parentNode)
 {
     if (parentNode == nullptr)
         return createNode(value);
 
     if (value < parentNode->value)
     {
-        parentNode->left = recursiveAddValue(value, parentNode->left);
+        parentNode->left = addValueToNode(value, parentNode->left);
         parentNode = balance(parentNode);
     }
     else if (value > parentNode->value)
     {
-        parentNode->right = recursiveAddValue(value, parentNode->right);
+        parentNode->right = addValueToNode(value, parentNode->right);
         parentNode = balance(parentNode);
     }
 
@@ -124,37 +123,46 @@ Node *recursiveAddValue(int value, Node *parentNode)
 
 void addValue(int value, BinaryTree *t)
 {
-    t->root = recursiveAddValue(value, t->root);
+    t->root = addValueToNode(value, t->root);
     t->root = balance(t->root);
 }
 
 int deleteMin(Node *parentNode)
 {
-    if (parentNode == nullptr)
-        return 0;
-
     Node *temp = parentNode;
 
-    while (temp->left != nullptr)
+    while (temp->left->left != nullptr)
         temp = temp->left;
 
     int value = temp->left->value;
-    delete temp->left;
-    temp->left = nullptr;
+    Node *toDelete = temp->left;
+    temp->left = temp->left->right;
+    delete toDelete;
     return value;
 }
 
-Node *recursiveDeleteValue(Node *parentNode, int value)
+Node *deleteValueInNode(Node *parentNode, int value)
 {
     if (parentNode == nullptr)
         return parentNode;
 
     if (value < parentNode->value)
-        parentNode->left = recursiveDeleteValue(parentNode->left, value);
+        parentNode->left = deleteValueInNode(parentNode->left, value);
     else if (value > parentNode->value)
-        parentNode->right = recursiveDeleteValue(parentNode->right, value);
+        parentNode->right = deleteValueInNode(parentNode->right, value);
     else if (parentNode->left != nullptr && parentNode->right != nullptr)
-        parentNode->value = deleteMin(parentNode->right);
+    {
+        if (parentNode->right->left == nullptr)
+        {
+            parentNode->value = parentNode->right->value;
+            parentNode->right = parentNode->right->right;
+        }
+        else
+        {
+            parentNode->value = deleteMin(parentNode->right);
+            parentNode->right = balance(parentNode->right);
+        }
+    }
     else
     {
         if (parentNode->left != nullptr)
@@ -172,10 +180,9 @@ bool deleteValue(int value, BinaryTree *t)
     if (t->root == nullptr)
         return false;
 
-    if (recursiveDeleteValue(t->root, value) == nullptr)
-        return false;
-    else
-        return true;
+    t->root = deleteValueInNode(t->root, value);
+
+    return (t->root != nullptr);
 }
 
 bool contains(int value, BinaryTree *t)
@@ -198,59 +205,66 @@ bool contains(int value, BinaryTree *t)
     return false;
 }
 
-void recursivePrintNode(int flag, Node *parentNode)
+void printNode(int mode, Node *parentNode)
 {
     if (parentNode == nullptr)
     {
-        if (flag == 3)
+        if (mode == 3)
             cout << " null";
         return;
     }
 
-    if (flag == 1)
+    switch (mode)
     {
-        if (parentNode->left == nullptr && parentNode->right == nullptr)
-            cout << parentNode->value << " ";
-        else
+        case 1:
         {
-            recursivePrintNode(1, parentNode->left);
-            cout << parentNode->value << " ";
-            recursivePrintNode(1, parentNode->right);
-            return;
+            if (parentNode->left == nullptr && parentNode->right == nullptr)
+                cout << parentNode->value << " ";
+            else
+            {
+                printNode(1, parentNode->left);
+                cout << parentNode->value << " ";
+                printNode(1, parentNode->right);
+                return;
+            }
+            break;
         }
-    }
-    else if (flag == 2)
-    {
-        if (parentNode->left == nullptr && parentNode->right == nullptr)
-            cout << parentNode->value << " ";
-        else
+        case 2:
         {
-            recursivePrintNode(2, parentNode->right);
-            cout << parentNode->value << " ";
-            recursivePrintNode(2, parentNode->left);
-            return;
+            if (parentNode->left == nullptr && parentNode->right == nullptr)
+                cout << parentNode->value << " ";
+            else
+            {
+                printNode(2, parentNode->right);
+                cout << parentNode->value << " ";
+                printNode(2, parentNode->left);
+                return;
+            }
+            break;
         }
-    }
-    else if (flag == 3)
-    {
-        cout << " (" << parentNode->value;
-        recursivePrintNode(3, parentNode->left);
-        recursivePrintNode(3, parentNode->right);
-        cout << ")";
+        case 3:
+        {
+            cout << " (" << parentNode->value;
+            printNode(3, parentNode->left);
+            printNode(3, parentNode->right);
+            cout << ")";
+            break;
+        }
     }
 }
 
+//mode
 //1: in ascending
 //2: in descending
-//3: (value, (n1...), (n2...))
-void print(int flag, BinaryTree *t)
+//3: structure
+void print(int mode, BinaryTree *t)
 {
     if (t->root == nullptr)
         return;
 
     Node *temp = t->root;
 
-    if (flag == 1)
+    if (mode == 1)
     {
         if (temp->left == nullptr && temp->right == nullptr)
         {
@@ -258,11 +272,11 @@ void print(int flag, BinaryTree *t)
             return;
         }
 
-        recursivePrintNode(1, temp->left);
+        printNode(1, temp->left);
         cout << temp->value << " ";
-        recursivePrintNode(1, temp->right);
+        printNode(1, temp->right);
     }
-    else if (flag == 2)
+    else if (mode == 2)
     {
         Node *temp = t->root;
 
@@ -272,20 +286,20 @@ void print(int flag, BinaryTree *t)
             return;
         }
 
-        recursivePrintNode(2, temp->right);
+        printNode(2, temp->right);
         cout << temp->value << " ";
-        recursivePrintNode(2, temp->left);
+        printNode(2, temp->left);
     }
     else
     {
         cout << "(" << temp->value;
-        recursivePrintNode(3, temp->left);
-        recursivePrintNode(3, temp->right);
+        printNode(3, temp->left);
+        printNode(3, temp->right);
         cout << ")";
     }
 }
 
-void recursiveDeleteNode(Node *n)
+void deleteNode(Node *n)
 {
     if (n == nullptr)
         return;
@@ -294,8 +308,8 @@ void recursiveDeleteNode(Node *n)
         delete n;
     else
     {
-        recursiveDeleteNode(n->left);
-        recursiveDeleteNode(n->right);
+        deleteNode(n->left);
+        deleteNode(n->right);
         delete n;
     }
 }
@@ -306,8 +320,8 @@ bool clear(BinaryTree *t)
         return false;
 
     Node *temp = t->root;
-    recursiveDeleteNode(temp->left);
-    recursiveDeleteNode(temp->right);
+    deleteNode(temp->left);
+    deleteNode(temp->right);
     delete temp;
 
     t->root = nullptr;
