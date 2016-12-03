@@ -1,20 +1,29 @@
 #include <iostream>
 #include <fstream>
+#include <limits>
 #include "ExpressionsTree.h"
 
 using namespace std;
 
+enum Directions
+{
+    leftDirection = 1,
+    rightDirection = 2
+};
+
 struct Node
 {
     int value;
+    char operation;
     Node *left;
     Node *right;
 };
 
-Node *createNode(int value, Node *left, Node *right)
+Node *createNode(int value, Node *left, Node *right, char operation = '\0')
 {
     Node *newNode = new Node;
     newNode->value = value;
+    newNode->operation = operation;
     newNode->left = left;
     newNode->right = right;
     return newNode;
@@ -37,9 +46,9 @@ int charToInt(char *str)
     int i = 0;
     int newNumber = 0;
 
-    while (i < 1024 && (int) str[i] >= (int) '0' && (int) str[i] <= (int) '9')
+    while (i < 1024 && str[i] >= '0' && str[i] <= '9')
     {
-        newNumber = newNumber * 10 + ((int) str[i] - (int) '0');
+        newNumber = newNumber * 10 + (str[i] - '0');
         i++;
     }
 
@@ -53,56 +62,41 @@ int computeBufferLength(char *buffer)
             return i;
 }
 
-int defineOperation(char c)
+void loadToNode(char *buffer, int &temp, int maxIndex, Node *parentNode, Directions direction)
 {
-    if (c == '+')
-        return 1;
-    else if (c == '-')
-        return 2;
-    else if (c == '*')
-        return 3;
-    else if (c == '/')
-        return 4;
-    else
-        return -1;
-}
-
-void recursiveLoad(char *buffer, int &temp, int max, Node *parentNode, int direction)
-{
-    if (temp >= max)
+    if (temp >= maxIndex)
         return;
 
     if (buffer[temp] == '(')
     {
         temp += 1;
-        int operationToAdd = defineOperation(buffer[temp]);
 
-        if (direction == 1)
+        if (direction == leftDirection)
         {
-            parentNode->left = createNode(operationToAdd, nullptr, nullptr);
+            parentNode->left = createNode(INT_MAX, nullptr, nullptr, buffer[temp]);
             temp += 2;
-            recursiveLoad(buffer, temp, max, parentNode->left, 1);
-            recursiveLoad(buffer, temp, max, parentNode->left, 2);
+            loadToNode(buffer, temp, maxIndex, parentNode->left, leftDirection);
+            loadToNode(buffer, temp, maxIndex, parentNode->left, rightDirection);
         }
         else
         {
-            parentNode->right = createNode(operationToAdd, nullptr, nullptr);
+            parentNode->right = createNode(INT_MAX, nullptr, nullptr, buffer[temp]);
             temp += 2;
-            recursiveLoad(buffer, temp, max, parentNode->right, 1);
-            recursiveLoad(buffer, temp, max, parentNode->right, 2);
+            loadToNode(buffer, temp, maxIndex, parentNode->right, leftDirection);
+            loadToNode(buffer, temp, maxIndex, parentNode->right, rightDirection);
         }
     }
-    else if((int) buffer[temp] >= (int) '0' && (int) buffer[temp] <= '9')
+    else if(buffer[temp] >= '0' && buffer[temp] <= '9')
     {
         int number = 0;
 
-        while((int) buffer[temp] >= (int) '0' && (int) buffer[temp] <= (int) '9')
+        while(buffer[temp] >= '0' && buffer[temp] <= '9')
         {
-            number = number * 10 + ((int) buffer[temp] - (int) '0');
+            number = number * 10 + (buffer[temp] - '0');
             temp++;
         }
 
-        if (direction == 1)
+        if (direction == leftDirection)
         {
             parentNode->left = createNode(number, nullptr, nullptr);
             temp += 1;
@@ -113,8 +107,6 @@ void recursiveLoad(char *buffer, int &temp, int max, Node *parentNode, int direc
             temp += 2;
         }
     }
-    else
-        throw 99;
 }
 
 void loadExpressionsFromFile(char const *fileName, ExpressionsTree *t)
@@ -124,31 +116,31 @@ void loadExpressionsFromFile(char const *fileName, ExpressionsTree *t)
     char buffer[2048] = {'\0'};
     fin.getline(buffer, 2048);
 
-    int max = computeBufferLength(buffer) - 1;
+    int maxIndex = computeBufferLength(buffer) - 1;
     int temp = 0;
 
-    if (max > 1 && buffer[temp] == '(')
+    if (maxIndex > 1 && buffer[temp] == '(')
     {
-        t->root = createNode(defineOperation(buffer[1]), nullptr, nullptr);
+        t->root = createNode(INT_MAX, nullptr, nullptr, buffer[1]);
         temp += 3;
-        recursiveLoad(buffer, temp, max, t->root, 1);
-        recursiveLoad(buffer, temp, max, t->root, 2);
+        loadToNode(buffer, temp, maxIndex, t->root, leftDirection);
+        loadToNode(buffer, temp, maxIndex, t->root, rightDirection);
     }
 
     fin.close();
 }
 
-double computeOperation(int num1, int num2, int operationCode)
+double computeOperation(int num1, int num2, char operation)
 {
-    switch (operationCode)
+    switch (operation)
     {
-    case 1:
+    case '+':
         return num1 + num2;
-    case 2:
+    case '-':
         return num1 - num2;
-    case 3:
+    case '*':
         return num1 * num2;
-    case 4:
+    case '/':
         return (double) num1 / num2;
     default:
         return 0;
@@ -156,7 +148,7 @@ double computeOperation(int num1, int num2, int operationCode)
     }
 }
 
-double recursiveCompute(Node *parentNode)
+double computeNode(Node *parentNode)
 {
     if (parentNode == nullptr)
         return 0;
@@ -164,36 +156,17 @@ double recursiveCompute(Node *parentNode)
     if (parentNode->left == nullptr && parentNode->right == nullptr)
         return parentNode->value;
 
-    int num1 = recursiveCompute(parentNode->left);
-    int num2 = recursiveCompute(parentNode->right);
-    return computeOperation(num1, num2, parentNode->value);
+    int num1 = computeNode(parentNode->left);
+    int num2 = computeNode(parentNode->right);
+    return computeOperation(num1, num2, parentNode->operation);
 }
 
 double compute(ExpressionsTree *expressions)
 {
-    return recursiveCompute(expressions->root);
+    return computeNode(expressions->root);
 }
 
-void printOperation(int code)
-{
-    switch (code)
-    {
-    case 1:
-        cout << "+";
-        break;
-    case 2:
-        cout << "-";
-        break;
-    case 3:
-        cout << "*";
-        break;
-    case 4:
-        cout << "/";
-        break;
-    }
-}
-
-void recursivePrintNode(Node *parentNode)
+void printNode(Node *parentNode)
 {
     if (parentNode == nullptr)
         return;
@@ -203,11 +176,9 @@ void recursivePrintNode(Node *parentNode)
     else
     {
         cout << "(";
-        recursivePrintNode(parentNode->left);
-        cout << " ";
-        printOperation(parentNode->value);
-        cout << " ";
-        recursivePrintNode(parentNode->right);
+        printNode(parentNode->left);
+        cout << " " << parentNode->operation << " ";
+        printNode(parentNode->right);
         cout << ")";
         return;
     }
@@ -227,15 +198,13 @@ void print(ExpressionsTree *t)
     }
 
     cout << "(";
-    recursivePrintNode(temp->left);
-    cout << " ";
-    printOperation(temp->value);
-    cout << " ";
-    recursivePrintNode(temp->right);
+    printNode(temp->left);
+    cout << " " << temp->operation << " ";
+    printNode(temp->right);
     cout << ")";
 }
 
-void recursiveDeleteNode(Node *n)
+void deleteNode(Node *n)
 {
     if (n == nullptr)
         return;
@@ -244,8 +213,8 @@ void recursiveDeleteNode(Node *n)
         delete n;
     else
     {
-        recursiveDeleteNode(n->left);
-        recursiveDeleteNode(n->right);
+        deleteNode(n->left);
+        deleteNode(n->right);
         delete n;
     }
 }
@@ -256,8 +225,8 @@ bool clear(ExpressionsTree *t)
         return false;
 
     Node *temp = t->root;
-    recursiveDeleteNode(temp->left);
-    recursiveDeleteNode(temp->right);
+    deleteNode(temp->left);
+    deleteNode(temp->right);
     delete temp;
 
     t->root = nullptr;

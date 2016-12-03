@@ -17,7 +17,6 @@ int main()
 
     clear(expressions);
     delete expressions;
-    delete[] fileName;
 
     return 0;
 }
