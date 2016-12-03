@@ -24,31 +24,24 @@ void printSpaces(int count)
 
 void inputCoefficients(int coefficients[], int length)
 {
-	for (int i = 0; i < length; i++)
-	{
-		cout << "Enter " << i << "th coefficient: ";
-		cin >> coefficients[length - 1 - i];
-	}
+    for (int i = 0; i < length; i++)
+    {
+        cout << "Enter " << i << "th coefficient: ";
+        cin >> coefficients[length - 1 - i];
+    }
 
-	cout << endl;
+    cout << endl;
 }
 
-int main()
+void printPowers(int length, int coefficients[])
 {
-	cout << "Enter coefficients count: ";
-	int length = 0;
-	cin >> length;
-    int coefficients[length] = {0};
-    inputCoefficients(coefficients, length);
-
-    //print 1 line
     cout << " ";
     for (int i = length - 1; i > 1; i--)
     {
-    	int coeff = coefficients[length - i - 1];
+        int coeff = coefficients[length - i - 1];
 
-    	if (coeff == 0)
-    		continue;
+        if (coeff == 0)
+            continue;
 
         int coeffLength = getNumberLength(coeff);
         int indent = coeffLength;
@@ -62,42 +55,58 @@ int main()
         printSpaces(indent);
         cout << i;
     }
-    cout << endl;
+}
 
-    if (coefficients[0] != 0)
-	    if (coefficients[0] == 1)
-	    	cout << "x";
-	    else if (coefficients[0] == -1)
-	    	cout << "-x";
-	    else
-	    	cout << coefficients[0] << "x";
+void printCoefficients(int length, int coefficients[])
+{
+    if (coefficients[0])
+        if (coefficients[0] == 1)
+            cout << "x";
+        else if (coefficients[0] == -1)
+            cout << "-x";
+        else
+            cout << coefficients[0] << "x";
 
-	int lastDegree = length - 2;
+    int lastDegree = length - 2;
     for (int i = length - 2; i >= 0; i--)
     {
-    	if (coefficients[length - i -1] == 0)
-    		continue;
+        if (coefficients[length - i -1] == 0)
+            continue;
 
-    	int degreeLenght = getNumberLength(lastDegree);
-    	printSpaces(degreeLenght - 1);
-    	lastDegree = i;
+        int degreeLenght = getNumberLength(lastDegree);
+        printSpaces(degreeLenght - 1);
+        lastDegree = i;
 
         if (coefficients[length - i - 1] < 0)
         {
             cout << " - ";
-        	if (coefficients[length - i - 1] != -1 || i == 0)
-        		cout << -coefficients[length - i - 1];
+            if (coefficients[length - i - 1] != -1 || i == 0)
+                cout << -coefficients[length - i - 1];
         }
         else
         {
             cout << " + ";
-        	if (coefficients[length - i - 1] != 1 || i == 0)
-        		cout << coefficients[length - i - 1];
+            if (coefficients[length - i - 1] != 1 || i == 0)
+                cout << coefficients[length - i - 1];
         }
         if (i != 0)
             cout << "x";
     }
-    cout << endl << endl;
+}
+
+int main()
+{
+    cout << "Enter coefficients count: ";
+    int length = 0;
+    cin >> length;
+    int coefficients[length] = {0};
+    inputCoefficients(coefficients, length);
+
+    printPowers(length, coefficients);
+    cout << endl;
+
+    printCoefficients(length, coefficients);
+    cout << endl;
 
     return 0;
 }
