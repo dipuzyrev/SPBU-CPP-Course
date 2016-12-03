@@ -5,26 +5,35 @@
 
 using namespace std;
 
+enum Command
+{
+    exitCommand = 0,
+    addEntryCommand = 1,
+    findTelCommand = 2,
+    findNameCommand = 3,
+    saveToFileCommand = 4
+};
+
 void printInstructions()
 {
-    cout << "0: exit" << endl;
-    cout << "1: add entry (name and telephone)" << endl;
-    cout << "2: find telephone by name" << endl;
-    cout << "3: find name by telephone" << endl;
-    cout << "4: save data in file" << endl << endl;
+    cout << exitCommand << ": exit" << endl;
+    cout << addEntryCommand << ": add entry (name and telephone)" << endl;
+    cout << findTelCommand << ": find telephone by name" << endl;
+    cout << findNameCommand << ": find name by telephone" << endl;
+    cout << saveToFileCommand << ": save data in file" << endl << endl;
 }
 
 void performCommand(List *list, int commandNumber, char const *fileName)
 {
     switch (commandNumber)
     {
-        case 1:
+        case addEntryCommand:
         {
             cout << "Input name: ";
-            char *name = createStr(64);
+            char name[64] = {'\0'};
             cin >> name;
             cout << "Input telephone: ";
-            char *telephone = createStr(64);
+            char telephone[64] = {'\0'};
             cin >> telephone;
             int result = addValue(list, name, telephone);
             if (result)
@@ -33,9 +42,9 @@ void performCommand(List *list, int commandNumber, char const *fileName)
                 cout << "Telephone (" << telephone << ") already exist" << endl << endl;
             break;
         }
-        case 2:
+        case findTelCommand:
         {
-            char *name = createStr(64);
+            char name[64] = {'\0'};
             cout << "Input name: ";
             cin >> name;
             char *result = findByName(list, name);
@@ -45,9 +54,9 @@ void performCommand(List *list, int commandNumber, char const *fileName)
                 cout << "Name doesn't exist in the phonebook" << endl << endl;
             break;
         }
-        case 3:
+        case findNameCommand:
         {
-            char *telephone = createStr(64);
+            char telephone[64] = {'\0'};
             cout << "Input telephone: ";
             cin >> telephone;
             char *result = findByTelephone(list, telephone);
@@ -57,7 +66,7 @@ void performCommand(List *list, int commandNumber, char const *fileName)
                 cout << "Telephone doesn't exist in the phonebook" << endl << endl;
             break;
         }
-        case 4:
+        case saveToFileCommand:
         {
             saveDataToFile(fileName, list);
             cout << "Data saved to file" << endl << endl;
@@ -72,7 +81,8 @@ int getCommand()
     cout << "Input your command: ";
     cin >> command;
 
-    if (command > 4 || command < 0)
+    if (command != exitCommand && command != addEntryCommand && command != findTelCommand &&
+        command != findNameCommand && command != saveToFileCommand)
     {
         cout << "Unknown command number!" << endl;
         return getCommand();
@@ -91,7 +101,7 @@ int main()
 
     int command = getCommand();
 
-    while (command != 0)
+    while (command != exitCommand)
     {
         performCommand(phonebook, command, fileName);
         command = getCommand();

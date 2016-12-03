@@ -12,8 +12,8 @@ void loadDataFromFile(char const *fileName, List *l)
     if (!fin.is_open())
         return;
 
-    char *name = createStr(64);
-    char *telephone = createStr(64);
+    char name[64] = {'\0'};
+    char telephone[64] = {'\0'};
 
     fin >> name;
     fin >> telephone;
