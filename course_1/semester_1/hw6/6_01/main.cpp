@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void printExponential(double num)
+char getSign(double num)
 {
     unsigned char *bin = (unsigned char*)(&num);
 
@@ -11,6 +11,13 @@ void printExponential(double num)
 
     if (bin[7] & signMask)
         negative = true;
+
+    return negative ? '-' : '+';
+}
+
+double getMantissa(double num)
+{
+    unsigned char *bin = (unsigned char*)(&num);
 
     double mantissaDec = 1;
 
@@ -36,8 +43,15 @@ void printExponential(double num)
         bitsToCheck = 8;
     }
 
+    return mantissaDec;
+}
+
+int getExponent(double num)
+{
+    unsigned char *bin = (unsigned char*)(&num);
+
     int exponentMask = 0b00010000;
-    bitsToCheck = 4;
+    int bitsToCheck = 4;
     int exponentDec = 0;
     int factor = 1;
 
@@ -60,12 +74,16 @@ void printExponential(double num)
 
     exponentDec -= 1023;
 
-    if (negative)
-        cout << "-";
-    else
-        cout << "+";
+    return exponentDec;
+}
 
-    cout << mantissaDec << "^" << "2*" << exponentDec;
+void printExponential(double num)
+{
+    char sign = getSign(num);
+    double mantissa = getMantissa(num);
+    int exponent = getExponent(num);
+
+    cout << sign << mantissa << " * 2 ^ " << exponent << endl;
 }
 
 int main()
