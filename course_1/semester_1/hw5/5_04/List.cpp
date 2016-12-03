@@ -165,8 +165,8 @@ void clearList(List *l)
     {
         ListItem *toDelete = temp;
         temp = temp->next;
-        delete toDelete->name;
-        delete toDelete->telephone;
+        delete[] toDelete->name;
+        delete[] toDelete->telephone;
         delete toDelete;
     }
 }
