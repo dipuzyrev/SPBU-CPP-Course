@@ -157,90 +157,98 @@ bool contains(int value, BinaryTree *t)
     return false;
 }
 
-void recursivePrintNode(int flag, Node *parentNode)
+void recursivePrintNode(int mode, Node *parentNode)
 {
     if (parentNode == nullptr)
     {
-        if (flag == 3)
+        if (mode == 3)
             cout << " null";
         return;
     }
 
-    if (flag == 1)
+    switch (mode)
     {
-        if (parentNode->leftChild == nullptr && parentNode->rightChild == nullptr)
-            cout << parentNode->value << " ";
-        else
+        case 1:
         {
-            recursivePrintNode(1, parentNode->leftChild);
-            cout << parentNode->value << " ";
-            recursivePrintNode(1, parentNode->rightChild);
-            return;
+            if (parentNode->leftChild == nullptr && parentNode->rightChild == nullptr)
+                cout << parentNode->value << " ";
+            else
+            {
+                recursivePrintNode(1, parentNode->leftChild);
+                cout << parentNode->value << " ";
+                recursivePrintNode(1, parentNode->rightChild);
+                return;
+            }
+            break;
         }
-    }
-    else if (flag == 2)
-    {
-        if (parentNode->leftChild == nullptr && parentNode->rightChild == nullptr)
-            cout << parentNode->value << " ";
-        else
+        case 2:
         {
-            recursivePrintNode(2, parentNode->rightChild);
-            cout << parentNode->value << " ";
-            recursivePrintNode(2, parentNode->leftChild);
-            return;
+            if (parentNode->leftChild == nullptr && parentNode->rightChild == nullptr)
+                cout << parentNode->value << " ";
+            else
+            {
+                recursivePrintNode(2, parentNode->rightChild);
+                cout << parentNode->value << " ";
+                recursivePrintNode(2, parentNode->leftChild);
+                return;
+            }
+            break;
         }
-    }
-    else if (flag == 3)
-    {
-        cout << " (" << parentNode->value;
-        recursivePrintNode(3, parentNode->leftChild);
-        recursivePrintNode(3, parentNode->rightChild);
-        cout << ")";
+        case 3:
+        {
+            cout << " (" << parentNode->value;
+            recursivePrintNode(3, parentNode->leftChild);
+            recursivePrintNode(3, parentNode->rightChild);
+            cout << ")";
+            break;
+        }
     }
 }
 
 //1: in ascending
 //2: in descending
 //3: (value, (n1...), (n2...))
-void print(int flag, BinaryTree *t)
+void print(int mode, BinaryTree *t)
 {
     if (t->root == nullptr)
         return;
 
     Node *temp = t->root;
 
-    if (flag == 1)
+    switch (mode)
     {
-        if (temp->leftChild == nullptr && temp->rightChild == nullptr)
+        case 1:
         {
-            cout << temp->value;
-            return;
+            if (temp->leftChild == nullptr && temp->rightChild == nullptr)
+            {
+                cout << temp->value;
+                return;
+            }
+            break;
         }
-
-        recursivePrintNode(1, temp->leftChild);
-        cout << temp->value << " ";
-        recursivePrintNode(1, temp->rightChild);
-    }
-    else if (flag == 2)
-    {
-        Node *temp = t->root;
-
-        if (temp->leftChild == nullptr && temp->rightChild == nullptr)
+        case 2:
         {
+            Node *temp = t->root;
+
+            if (temp->leftChild == nullptr && temp->rightChild == nullptr)
+            {
+                cout << temp->value << " ";
+                return;
+            }
+
+            recursivePrintNode(2, temp->rightChild);
             cout << temp->value << " ";
-            return;
+            recursivePrintNode(2, temp->leftChild);
+            break;
         }
-
-        recursivePrintNode(2, temp->rightChild);
-        cout << temp->value << " ";
-        recursivePrintNode(2, temp->leftChild);
-    }
-    else
-    {
-        cout << "(" << temp->value;
-        recursivePrintNode(3, temp->leftChild);
-        recursivePrintNode(3, temp->rightChild);
-        cout << ")";
+        case 3:
+        {
+            cout << "(" << temp->value;
+            recursivePrintNode(3, temp->leftChild);
+            recursivePrintNode(3, temp->rightChild);
+            cout << ")";
+            break;
+        }
     }
 }
 
