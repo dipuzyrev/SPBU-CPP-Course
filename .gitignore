@@ -8,9 +8,9 @@
 *.qmake.stash
 Makefile
 
-*/*/*/release/*
-*/*/*/debug/*
-*/*/*/.gitignore
+*/*/*/*/release/*
+*/*/*/*/debug/*
+*/*/*/*/.gitignore
 
 */*/test1/*
 */*/test2/*
