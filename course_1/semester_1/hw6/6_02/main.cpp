@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void sumBin(int *bin1, int *bin2, int *binSum)
+void sumBin(int bin1[], int bin2[], int binSum[])
 {
     int additional = 0;
 
@@ -10,7 +10,10 @@ void sumBin(int *bin1, int *bin2, int *binSum)
     {
         int sum = bin1[i] + bin2[i] + additional;
         if (sum < 2)
+        {
             binSum[i] = sum;
+            additional = 0;
+        }
         else
         {
             binSum[i] = sum % 2;
@@ -63,15 +66,17 @@ int pow(int n, int power)
     if (power == 0)
         return 1;
 
+    int factor = n;
+
     for (int i = 1; i < power; i++)
-        n *= n;
+        n *= factor;
 
     return n;
 }
 
 int binToDec(int *bin)
 {
-    bool inverse = bin[0] == 1;
+    bool inverse = (bin[0] == 1);
 
     if (inverse)
         inverseBin(bin);
@@ -79,14 +84,13 @@ int binToDec(int *bin)
     int dec = 0;
 
     for (int i = 7; i >= 0; i--)
-        dec += bin[7 - i] * pow(2, i);
+        dec += bin[i] * pow(2, (7 - i));
 
     return inverse ? -dec : dec;
 }
 
 int main()
 {
-
     int number1 = 0;
     int number2 = 0;
 
