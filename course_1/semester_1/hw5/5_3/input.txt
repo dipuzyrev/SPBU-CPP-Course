@@ -1,0 +1,8 @@
+//ok1
+string a = "//not"; //ok2
+
+/* //not
+multiline comment... //not */ //ok3
+
+int a = b; //ok4
+//ok5
