@@ -32,19 +32,19 @@ int main()
 
     int const maxSize = 4096;
     char buffer[maxSize] = {'\0'};
-    int countOfEmpty = 0;
+    int countOfNotEmpty = 0;
 
     while(!fin.eof())
     {
         fin.getline(buffer, maxSize);
 
-        if (isEmpty(buffer, maxSize))
-            countOfEmpty++;
+        if (!isEmpty(buffer, maxSize))
+            countOfNotEmpty++;
 
         cleanBuffer(buffer, maxSize);
     }
 
-    cout << "Count of empty lines: " << countOfEmpty << endl;
+    cout << "Count of not empty lines: " << countOfNotEmpty << endl;
 
     fin.close();
     return 0;
