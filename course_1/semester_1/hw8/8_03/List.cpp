@@ -1,37 +1,28 @@
 #include <iostream>
 #include "List.h"
-#include "Str.h"
+#include "CustomString.h"
 
 using namespace std;
 
 struct ListElement
 {
-    Str *value;
+    String *value;
     int count;
-	ListElement *next;
+    ListElement *next;
 };
 
 struct List
 {
-	ListElement *head;
-	int length;
+    ListElement *head;
+    int length;
 };
 
 List* createList()
 {
-	List *list = new List;
-	list->head = nullptr;
-	list->length = 0;
-	return list;
-}
-
-ListElement *createListElement(Str *value, ListElement *next)
-{
-	ListElement *newElement = new ListElement;
-	newElement->value = value;
-    newElement->count = 1;
-	newElement->next = next;
-	return newElement;
+    List *list = new List;
+    list->head = nullptr;
+    list->length = 0;
+    return list;
 }
 
 bool isEmpty(List *l)
@@ -39,35 +30,63 @@ bool isEmpty(List *l)
     return l->length == 0;
 }
 
-int size(List *l)
+void deleteList(List *&l)
+{
+    if(isEmpty(l))
+        return;
+
+    ListElement *temp = l->head;
+
+    while (temp != nullptr)
+    {
+        ListElement *toDelete = temp;
+        temp = temp->next;
+        deleteString(toDelete->value);
+        delete toDelete;
+    }
+
+    delete l;
+    l = nullptr;
+}
+
+ListElement *createListElement(String *value, ListElement *next)
+{
+    ListElement *newElement = new ListElement;
+    newElement->value = value;
+    newElement->count = 1;
+    newElement->next = next;
+    return newElement;
+}
+
+int getListLength(List *l)
 {
     return l->length;
 }
 
-int add(List *l, Str *value)
+bool addValue(List *l, String *value)
 {
-	if (isEmpty(l))
-	{
-		l->head = createListElement(value, nullptr);
+    if (isEmpty(l))
+    {
+        l->head = createListElement(value, nullptr);
         l->length = 1;
-        return 0;
-	}
+        return true;
+    }
 
-	ListElement *temp = l->head;
+    ListElement *temp = l->head;
 
-    while (temp->next != nullptr && !compareStr(value, temp->value))
-		temp = temp->next;
+    while (temp->next != nullptr && !equals(value, temp->value))
+        temp = temp->next;
 
-    if (compareStr(value, temp->value))
+    if (equals(value, temp->value))
     {
         temp->count++;
-        return 2;
+        return false;
     }
-    else if (temp->next == nullptr)
+    else
     {
-        temp->next = createListElement(value, temp->next);
+        temp->next = createListElement(value, nullptr);
         l->length++;
-        return 1;
+        return true;
     }
 }
 
@@ -80,16 +99,10 @@ void printList(List *l)
 
     while (temp->next != nullptr)
     {
-        printStr(temp->value);
+        cout << getChars(temp->value);
         cout << ", ";
         temp = temp->next;
     }
 
-    printStr(temp->value);
-}
-
-void changeList(List *listToChange, List *l)
-{
-    listToChange->head = l->head;
-    listToChange->length = l->length;
+    cout << getChars(temp->value);
 }

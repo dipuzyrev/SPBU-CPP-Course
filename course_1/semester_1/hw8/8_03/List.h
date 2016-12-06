@@ -1,11 +1,13 @@
 #pragma once
-#include "Str.h"
+
+#include "CustomString.h"
 
 struct List;
 
 List* createList();
-int add(List *l, Str *value);
-int size(List *l);
+void deleteList(List *&l);
+
+bool addValue(List *l, String *value);
+int getListLength(List *l);
 bool isEmpty(List *l);
 void printList(List *l);
-void changeList(List *listToChange, List *l);

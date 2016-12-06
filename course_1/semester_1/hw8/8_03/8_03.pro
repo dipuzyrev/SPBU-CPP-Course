@@ -5,8 +5,10 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     List.cpp \
-    Str.cpp
+    HashTable.cpp \
+    CustomString.cpp
 
 HEADERS += \
     List.h \
-    Str.h
+    HashTable.h \
+    CustomString.h
