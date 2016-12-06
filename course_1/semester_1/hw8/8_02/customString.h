@@ -13,4 +13,4 @@ bool isEmpty(String *string);
 String *substring(String *string, int indexFrom, int length);
 char *getChars(String *string);
 
-void remove(String *string);
+void deleteString(String *&string);

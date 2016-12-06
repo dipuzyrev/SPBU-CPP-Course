@@ -48,11 +48,11 @@ int main()
     String *subString = substring(string2, 8, 8);
     cout << endl << "Created substring, based on $string2 (\"" << getChars(string2) << "\") from 9th character, length - 8: \"" << getChars(subString) << "\"" << endl << endl;
 
-    remove(string1);
-    remove(string2);
-    remove(clonedString);
-    remove(emptyString);
-    remove(subString);
+    deleteString(string1);
+    deleteString(string2);
+    deleteString(clonedString);
+    deleteString(emptyString);
+    deleteString(subString);
 
     return 0;
 }

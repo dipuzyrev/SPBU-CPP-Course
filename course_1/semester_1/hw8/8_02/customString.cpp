@@ -80,7 +80,7 @@ String *substring(String *string, int indexFrom, int length)
     return substring;
 }
 
-void remove(String *string)
+void deleteString(String *&string)
 {
     delete[] string->value;
     delete string;
