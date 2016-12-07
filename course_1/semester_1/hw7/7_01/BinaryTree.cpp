@@ -1,4 +1,6 @@
 #include <iostream>
+#include "BinaryTree.h";
+
 using namespace std;
 
 struct Node
