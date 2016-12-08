@@ -95,8 +95,6 @@ void encodeFile(const char *inputFile, const char *outputFile, CodesList *codesL
 
 int main()
 {
-    setlocale(LC_ALL, "Russian");
-
     const char *inputFile = "input.txt";
     const char *outputFile = "output.txt";
 
