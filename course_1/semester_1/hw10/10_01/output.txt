@@ -1,0 +1,3 @@
+(null  (null (null (null (!) (h)) ( )) (null (null (r) (o)) (null (t) (i)))) (null (null (null (n) (H)) (null (g) (l))) (null (a) (null (m) (f)))))
+
+1001 110 1111 1111 1110 110 1000 001 110 1011 1010 0101 0100 0111 0110 0001 1110 0000 001 
