@@ -126,7 +126,7 @@ void printTree(const char *fileName, Tree *t)
     Node *temp = t->root;
 
     if (temp->value == '\0')
-        fout << "(null ";
+        fout << "(null";
     else
         fout << "(" << temp->value;
 
