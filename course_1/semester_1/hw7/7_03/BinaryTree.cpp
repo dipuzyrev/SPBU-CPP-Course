@@ -264,39 +264,41 @@ void print(int mode, BinaryTree *t)
 
     Node *temp = t->root;
 
-    if (mode == 1)
-    {
-        if (temp->left == nullptr && temp->right == nullptr)
+    switch (mode)
         {
-            cout << temp->value;
-            return;
+            case 1:
+            {
+                if (temp->leftChild == nullptr && temp->rightChild == nullptr)
+                {
+                    cout << temp->value;
+                    return;
+                }
+                break;
+            }
+            case 2:
+            {
+                Node *temp = t->root;
+
+                if (temp->leftChild == nullptr && temp->rightChild == nullptr)
+                {
+                    cout << temp->value << " ";
+                    return;
+                }
+
+                recursivePrintNode(2, temp->rightChild);
+                cout << temp->value << " ";
+                recursivePrintNode(2, temp->leftChild);
+                break;
+            }
+            case 3:
+            {
+                cout << "(" << temp->value;
+                recursivePrintNode(3, temp->leftChild);
+                recursivePrintNode(3, temp->rightChild);
+                cout << ")";
+                break;
+            }
         }
-
-        printNode(1, temp->left);
-        cout << temp->value << " ";
-        printNode(1, temp->right);
-    }
-    else if (mode == 2)
-    {
-        Node *temp = t->root;
-
-        if (temp->left == nullptr && temp->right == nullptr)
-        {
-            cout << temp->value << " ";
-            return;
-        }
-
-        printNode(2, temp->right);
-        cout << temp->value << " ";
-        printNode(2, temp->left);
-    }
-    else
-    {
-        cout << "(" << temp->value;
-        printNode(3, temp->left);
-        printNode(3, temp->right);
-        cout << ")";
-    }
 }
 
 void deleteNode(Node *n)
