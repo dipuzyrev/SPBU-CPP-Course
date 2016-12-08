@@ -106,14 +106,19 @@ void printNode(ostream &fout, Node *parentNode)
     if (parentNode == nullptr)
         return;
 
-    if (parentNode->value == '\0')
-        fout << " (null";
+    if (parentNode->left == nullptr && parentNode->right == nullptr)
+        fout << " " << parentNode->value;
     else
-        fout << " (" << parentNode->value;
+    {
+        if (parentNode->value == '\0')
+            fout << " (null";
+        else
+            fout << " (" << parentNode->value;
 
-    printNode(fout, parentNode->left);
-    printNode(fout, parentNode->right);
-    fout << ")";
+        printNode(fout, parentNode->left);
+        printNode(fout, parentNode->right);
+        fout << ")";
+    }
 }
 
 void printTree(const char *fileName, Tree *t)
