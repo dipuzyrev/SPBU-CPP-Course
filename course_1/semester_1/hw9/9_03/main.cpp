@@ -35,8 +35,8 @@ int main()
 {
     const int strSize   = 1024;
     const int subSize   = 256;
-    const int notation  = 3;
-    const int mod       = 10;
+    const int notation  = 13;
+    const int mod       = 56918;
 
     char str[strSize] = {'\0'};
     char subStr[subSize] = {'\0'};
@@ -49,8 +49,6 @@ int main()
 
     int strHash = 0;
     int subHash = 0;
-
-    cout << (int) 'a' << endl;
 
     for (int i = 0; i < subLength; i++)
     {
