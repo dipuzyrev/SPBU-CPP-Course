@@ -2,6 +2,7 @@
 *.user
 *.directory
 *.zip
+*.o
 *.Debug
 *.Release
 *.exe
