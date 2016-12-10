@@ -1,20 +1,10 @@
-
-*.user
 *.directory
-*.zip
-*.o
-*.Debug
-*.Release
-*.exe
-*.qmake.stash
-Makefile
 
-*/*/*/*/release/*
-*/*/*/*/debug/*
-*/*/*/*/.gitignore
+/*/*/*/*/*
 
-*/*/test1/*
-*/*/test2/*
-*/*/test3/*
-*/*/test4/*
-*/*/test5/*
+!/*/*/*/*/*.cpp
+!/*/*/*/*/*.h
+!/*/*/*/*/*.txt
+!/*/*/*/*/*.pro
+
+/*/*/*/*/output.txt
