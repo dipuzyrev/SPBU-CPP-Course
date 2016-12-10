@@ -70,13 +70,14 @@ bool equals(String *string1, String *string2)
 
 String *substring(String *string, int indexFrom, int length)
 {
-    String *substring = createString();
+    String *substring = new String;
 
     substring->value = new char[length + 1];
     substring->length = length;
 
     strncpy(substring->value, string->value + indexFrom, length);
     substring->value[length] = 0;
+
     return substring;
 }
 

@@ -126,6 +126,10 @@ void addWord(String *word, HashTable *t)
             t->addedUniqueWordsCount++;
             return;
         }
+        else
+        {
+            deleteString(word);
+        }
     }
 
     t->addedWordsCount++;
@@ -178,14 +182,17 @@ void trimWord(char *word, int maxSize)
 void loadFile(const char *fileName, HashTable *t, const int bufferSize)
 {
     ifstream fin(fileName);
+
     char buffer[bufferSize] = {'\0'};
+    fin >> buffer;
 
     while (!fin.eof())
     {
-        fin >> buffer;
         trimWord(buffer, bufferSize);
         String *newWord = createString(buffer);
         addWord(newWord, t);
+
+        fin >> buffer;
     }
 
     fin.close();
