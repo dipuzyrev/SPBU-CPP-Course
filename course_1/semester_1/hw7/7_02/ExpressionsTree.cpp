@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <limits>
+#include <cstring>
+#include <limits.h>
 #include "ExpressionsTree.h"
 
 using namespace std;
@@ -39,27 +40,6 @@ ExpressionsTree *create()
     ExpressionsTree *newTree = new ExpressionsTree;
     newTree->root = nullptr;
     return newTree;
-}
-
-int charToInt(char *str)
-{
-    int i = 0;
-    int newNumber = 0;
-
-    while (i < 1024 && str[i] >= '0' && str[i] <= '9')
-    {
-        newNumber = newNumber * 10 + (str[i] - '0');
-        i++;
-    }
-
-    return newNumber;
-}
-
-int computeBufferLength(char *buffer)
-{
-    for (int i = 0; i < 2048; i++)
-        if (buffer[i] == '\0')
-            return i;
 }
 
 void loadToNode(char *buffer, int &temp, int maxIndex, Node *parentNode, Directions direction)
@@ -109,14 +89,14 @@ void loadToNode(char *buffer, int &temp, int maxIndex, Node *parentNode, Directi
     }
 }
 
-void loadExpressionsFromFile(char const *fileName, ExpressionsTree *t)
+void loadExpressionsFromFile(char const *fileName, ExpressionsTree *t, const int bufferSize)
 {
     ifstream fin(fileName);
 
-    char buffer[2048] = {'\0'};
-    fin.getline(buffer, 2048);
+    char buffer[bufferSize] = {'\0'};
+    fin.getline(buffer, bufferSize);
 
-    int maxIndex = computeBufferLength(buffer) - 1;
+    int maxIndex = strlen(buffer) - 1;
     int temp = 0;
 
     if (maxIndex > 1 && buffer[temp] == '(')
@@ -219,15 +199,16 @@ void deleteNode(Node *n)
     }
 }
 
-bool clear(ExpressionsTree *t)
+void deleteTree(ExpressionsTree *&t)
 {
-    if (t->root == nullptr)
-        return false;
+    if (t->root != nullptr)
+    {
+        Node *temp = t->root;
+        deleteNode(temp->left);
+        deleteNode(temp->right);
+        delete temp;
+    }
 
-    Node *temp = t->root;
-    deleteNode(temp->left);
-    deleteNode(temp->right);
-    delete temp;
-
-    t->root = nullptr;
+    delete t;
+    t = nullptr;
 }

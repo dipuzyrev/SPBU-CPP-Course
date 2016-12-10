@@ -6,17 +6,17 @@ using namespace std;
 
 int main()
 {
-    char const *fileName = "input.txt";
+    const char *fileName = "input.txt";
+    const int bufferSize = 1024;
+
     ExpressionsTree *expressions = create();
 
-    loadExpressionsFromFile(fileName, expressions);
+    loadExpressionsFromFile(fileName, expressions, bufferSize);
     print(expressions);
     double result = compute(expressions);
 
     cout << endl << "Expression value: " << result << endl;
 
-    clear(expressions);
-    delete expressions;
-
+    deleteTree(expressions);
     return 0;
 }
