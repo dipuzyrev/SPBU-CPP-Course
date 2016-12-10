@@ -150,23 +150,28 @@ void deleteHead(List *l)
         ListItem *toDelete = l->head;
         l->head = l->head->next;
         l->size--;
-        delete toDelete;
-    }
-}
-
-void clearList(List *l)
-{
-    if (isEmpty(l))
-        return;
-
-    ListItem *temp = l->head;
-
-    while (temp->next != nullptr)
-    {
-        ListItem *toDelete = temp;
-        temp = temp->next;
         delete[] toDelete->name;
         delete[] toDelete->telephone;
         delete toDelete;
     }
+}
+
+void deleteList(List *&l)
+{
+    if (!isEmpty(l))
+    {
+        ListItem *temp = l->head;
+
+        while (temp != nullptr)
+        {
+            ListItem *toDelete = temp;
+            temp = temp->next;
+            delete[] toDelete->name;
+            delete[] toDelete->telephone;
+            delete toDelete;
+        }
+    }
+
+    delete l;
+    l = nullptr;
 }

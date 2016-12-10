@@ -11,4 +11,4 @@ char *findByTelephone(List *l, char *telephone);
 char *getHeadName(List *l);
 char *getHeadTelephone(List *l);
 void deleteHead(List *l);
-void clearList(List *l);
+void deleteList(List *&l);

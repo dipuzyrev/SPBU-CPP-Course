@@ -33,7 +33,7 @@ void loadDataFromFile(char const *fileName, List *l)
 
 void saveDataToFile(char const *fileName, List *l)
 {
-    ofstream fout("phonebook.txt");
+    ofstream fout(fileName);
 
     while (!isEmpty(l))
     {

@@ -94,6 +94,7 @@ int getCommand()
 int main()
 {
     char const *fileName = "phonebook.txt";
+
     List *phonebook = createList();
     loadDataFromFile(fileName, phonebook);
 
@@ -107,8 +108,7 @@ int main()
         command = getCommand();
     }
 
-    clearList(phonebook);
-    delete phonebook;
+    deleteList(phonebook);
 
     return 0;
 }
