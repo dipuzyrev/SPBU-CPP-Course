@@ -34,11 +34,8 @@ void performCommand(BinaryTree *bsw, int commandNumber)
             int value = 0;
             cout << "Input value to add: ";
             cin >> value;
-            bool result = addValue(value, bsw);
-            if (result)
-                cout << "Value (" << value << ") added" << endl;
-            else
-                cout << "Value (" << value << ") already exist" << endl;
+            addValue(value, bsw);
+            cout << endl;
             break;
         }
         case removeValueCommand:
@@ -143,29 +140,26 @@ void performAutomaticTest()
     else
         cout << "NO";
 
-    cout << endl << "Clear tree..." << endl;
-    clear(bsw);
-    cout << "Trying to print: ";
-    print(3, bsw);
     cout << endl << "[End of automatic test]" << endl;
+
+    deleteTree(bsw);
 }
 
 int main()
 {
-    performAutomaticTest();
+    //performAutomaticTest();
 
-//    BinaryTree *bsw = create();
+    BinaryTree *bsw = create();
 
-//    printInstructions();
-//    int command = getCommand();
+    printInstructions();
+    int command = getCommand();
 
-//    while (command != 0)
-//    {
-//        performCommand(bsw, command);
-//        command = getCommand();
-//    }
+    while (command != 0)
+    {
+        performCommand(bsw, command);
+        command = getCommand();
+    }
 
-//    clear(bsw);
-//    delete bsw;
+    deleteTree(bsw);
     return 0;
 }
