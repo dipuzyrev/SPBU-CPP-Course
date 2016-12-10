@@ -5,7 +5,7 @@ struct BinaryTree;
 BinaryTree *create();
 
 void addValue(int value, BinaryTree *t);
-bool deleteValue(int value, BinaryTree *t);
+void deleteValue(int value, BinaryTree *t);
 bool contains(int value, BinaryTree *t);
 
 //1: in ascending
@@ -13,5 +13,5 @@ bool contains(int value, BinaryTree *t);
 //3: (value, (n1...), (n2...))
 void print(int flag, BinaryTree *t);
 
-bool clear(BinaryTree *t);
+void deleteTree(BinaryTree *&t);
 

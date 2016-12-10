@@ -80,6 +80,9 @@ Node *rotateLeft(Node* root)
 
 Node* balance(Node* p)
 {
+    if (p == nullptr)
+        return nullptr;
+
     updateHeight(p);
 
     if (balanceFactor(p) == 2)
@@ -154,8 +157,12 @@ Node *deleteValueInNode(Node *parentNode, int value)
     {
         if (parentNode->right->left == nullptr)
         {
+            Node *toDelete = parentNode->right;
+
             parentNode->value = parentNode->right->value;
             parentNode->right = parentNode->right->right;
+
+            delete toDelete;
         }
         else
         {
@@ -165,24 +172,26 @@ Node *deleteValueInNode(Node *parentNode, int value)
     }
     else
     {
+        Node *toDelete = parentNode;
+
         if (parentNode->left != nullptr)
             parentNode = parentNode->left;
         else
             parentNode = parentNode->right;
+
+        delete toDelete;
     }
 
     parentNode = balance(parentNode);
     return parentNode;
 }
 
-bool deleteValue(int value, BinaryTree *t)
+void deleteValue(int value, BinaryTree *t)
 {
     if (t->root == nullptr)
-        return false;
+        return;
 
     t->root = deleteValueInNode(t->root, value);
-
-    return (t->root != nullptr);
 }
 
 bool contains(int value, BinaryTree *t)
@@ -268,33 +277,36 @@ void print(int mode, BinaryTree *t)
         {
             case 1:
             {
-                if (temp->leftChild == nullptr && temp->rightChild == nullptr)
+                if (temp->left == nullptr && temp->right == nullptr)
                 {
                     cout << temp->value;
                     return;
                 }
+                printNode(1, temp->left);
+                cout << temp->value << " ";
+                printNode(1, temp->right);
                 break;
             }
             case 2:
             {
                 Node *temp = t->root;
 
-                if (temp->leftChild == nullptr && temp->rightChild == nullptr)
+                if (temp->left == nullptr && temp->right == nullptr)
                 {
                     cout << temp->value << " ";
                     return;
                 }
 
-                recursivePrintNode(2, temp->rightChild);
+                printNode(2, temp->right);
                 cout << temp->value << " ";
-                recursivePrintNode(2, temp->leftChild);
+                printNode(2, temp->left);
                 break;
             }
             case 3:
             {
                 cout << "(" << temp->value;
-                recursivePrintNode(3, temp->leftChild);
-                recursivePrintNode(3, temp->rightChild);
+                printNode(3, temp->left);
+                printNode(3, temp->right);
                 cout << ")";
                 break;
             }
@@ -316,16 +328,16 @@ void deleteNode(Node *n)
     }
 }
 
-bool clear(BinaryTree *t)
+void deleteTree(BinaryTree *&t)
 {
-    if (t->root == nullptr)
-        return false;
+    if (t->root != nullptr)
+    {
+        Node *temp = t->root;
+        deleteNode(temp->left);
+        deleteNode(temp->right);
+        delete temp;
+    }
 
-    Node *temp = t->root;
-    deleteNode(temp->left);
-    deleteNode(temp->right);
-    delete temp;
-
-    t->root = nullptr;
-    return true;
+    delete t;
+    t = nullptr;
 }

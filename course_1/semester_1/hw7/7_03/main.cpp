@@ -17,6 +17,11 @@ enum Command
 void performAutomaticTest()
 {
     BinaryTree *bsw = create();
+
+    cout << "[start automatic test]" << endl << endl;
+
+    cout << "Add values 1,2,3,4,5,6,7,8,9." << endl;
+
     addValue(1, bsw);
     addValue(2, bsw);
     addValue(3, bsw);
@@ -28,17 +33,56 @@ void performAutomaticTest()
     addValue(8, bsw);
     addValue(9, bsw);
 
-    cout << endl << "Detail structure: ";
+    cout << endl << "Print: " << endl;
+    print(1, bsw);
+    cout << endl;
+    print(2, bsw);
+    cout << endl;
     print(3, bsw);
+    cout << endl;
 
-    cout << endl << "Delete value 4 and print structure: ";
+    cout << endl << "Delete value (4) and print: ";
     deleteValue(4, bsw);
+    print(1, bsw);
+    cout << endl;
+    print(2, bsw);
+    cout << endl;
     print(3, bsw);
+    cout << endl;
 
-    cout << endl << endl;
+    cout << endl << "Delete value (6) and print: ";
+    deleteValue(6, bsw);
+    print(1, bsw);
+    cout << endl;
+    print(2, bsw);
+    cout << endl;
+    print(3, bsw);
+    cout << endl;
 
-    clear(bsw);
-    delete bsw;
+    cout << endl << "Delete value (1) and print: ";
+    deleteValue(1, bsw);
+    print(1, bsw);
+    cout << endl;
+    print(2, bsw);
+    cout << endl;
+    print(3, bsw);
+    cout << endl;
+
+    cout << endl << "Is value (1) contains in tree? ";
+    if (contains(1, bsw))
+        cout << "YES" << endl;
+    else
+        cout << "NO" << endl;
+
+    cout << endl << "Is value (2) contains in tree? ";
+    if (contains(2, bsw))
+        cout << "YES" << endl;
+    else
+        cout << "NO" << endl;
+
+    cout << "[end of automatic test]" << endl;
+
+    deleteTree(bsw);
 }
 
 void printInstructions()
@@ -69,11 +113,7 @@ void performCommand(BinaryTree *bsw, int commandNumber)
             int value = 0;
             cout << "Input value to remove: ";
             cin >> value;
-            bool result = deleteValue(value, bsw);
-            if (result)
-                cout << "Value (" << value << ") removed" << endl;
-            else
-                cout << "Value (" << value << ") not found" << endl;
+            deleteValue(value, bsw);
             break;
         }
         case checkValueCommand:
@@ -141,7 +181,6 @@ int main()
         command = getCommand();
     }
 
-    clear(bsw);
-    delete bsw;
+    deleteTree(bsw);
     return 0;
 }
