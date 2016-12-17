@@ -17,7 +17,8 @@ int main()
     printMap(map, size, finish, start, printMode);
 
     deleteMap(map, size);
-    delete start, finish;
+    delete start;
+    delete finish;
 
     return 0;
 }
