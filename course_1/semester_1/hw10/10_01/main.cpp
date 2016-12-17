@@ -55,6 +55,9 @@ Tree *createCharsTree(PriorityQueue *charsQueue)
         mergeTrees(firstTree->value, secondTree->value);
         insert(firstTree->value, firstTree->key + secondTree->key, charsQueue);
 
+        delete firstTree;
+        delete secondTree;
+
         firstTree = extractMin(charsQueue);
         secondTree = extractMin(charsQueue);
     }

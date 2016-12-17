@@ -102,6 +102,7 @@ PriorityQueueReturn *extractMin(PriorityQueue *q)
 
     QueueElement *toDelete = q->minimal;
     q->minimal = q->minimal->next;
+
     delete toDelete;
 
     q->size--;
