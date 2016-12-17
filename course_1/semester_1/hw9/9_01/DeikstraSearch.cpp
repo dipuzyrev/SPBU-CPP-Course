@@ -32,13 +32,19 @@ void deleteCitiesList(City **&citiesList, int citiesCount)
         }
     }
 
-    delete citiesList;
+    delete[] citiesList;
     citiesList = nullptr;
 }
 
 int **loadFile(const char *fileName, int &citiesCount, int &roadsCount)
 {
     ifstream fin(fileName);
+
+    if (!fin.is_open())
+    {
+        cout << "Failed to read input file!" << endl;
+        return nullptr;
+    }
 
     fin >> citiesCount;
     fin >> roadsCount;
@@ -141,6 +147,8 @@ void runDeikstraAlgorithm(int **map, int startFrom, City **list, int size)
         QueueElement *closestCity = extractMin(queue);
         updateNeighbors(map, size, closestCity->value - 1, list, queue);
         markAsVisited(closestCity->value - 1, list);
+
+        delete closestCity;
     }
 
     deletePriorityQueue(queue);

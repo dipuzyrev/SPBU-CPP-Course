@@ -13,8 +13,6 @@ struct PriorityQueue
     int size;
 };
 
-struct QueueElement;
-
 InternalQueueElement *createInternalElement(int key, int value, InternalQueueElement *next)
 {
     InternalQueueElement *newElem = new InternalQueueElement;
