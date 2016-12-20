@@ -4,9 +4,9 @@
 using namespace std;
 
 const int statesCount = 7;
-const int columnsCount = 6;
+const int columnNumber = 6;
 
-enum columnsCount
+enum columnNumber
 {
     digitColumn = 0,
     dotColumn = 1,
@@ -18,7 +18,7 @@ enum columnsCount
 
 StatesList *getTableValue(int line, int column, StatesList **table)
 {
-    StatesList *toReturn = table[line * columnsCount + column];
+    StatesList *toReturn = table[line * columnNumber + column];
     return toReturn;
 }
 
@@ -111,7 +111,7 @@ int main()
 
     const int bufferSize = 1024;
 
-    StatesList **transitionsTable = createStatesTable(statesCount * columnsCount);
+    StatesList **transitionsTable = createStatesTable(statesCount * columnNumber);
     fillTransitionsTable(transitionsTable);
 
     StatesList *currentStates = createStatesList();
@@ -159,7 +159,7 @@ int main()
 
     cout << endl;
 
-    deleteTransitionsTable(transitionsTable, statesCount * columnsCount);
+    deleteTransitionsTable(transitionsTable, statesCount * columnNumber);
     deleteStatesList(currentStates);
     return 0;
 }
