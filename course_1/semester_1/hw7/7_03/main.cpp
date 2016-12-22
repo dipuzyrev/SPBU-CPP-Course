@@ -1,18 +1,9 @@
 #include <iostream>
+
 #include "BinaryTree.h"
+#include "commandNumbers.h"
 
 using namespace std;
-
-enum Command
-{
-    exitCommand = 0,
-    addValueCommand = 1,
-    removeValueCommand = 2,
-    checkValueCommand = 3,
-    printInAscendingCommand = 4,
-    printInDescendingCommand = 5,
-    printStructureCommand = 6
-};
 
 void performAutomaticTest()
 {
@@ -128,27 +119,11 @@ void performCommand(BinaryTree *bsw, int commandNumber)
                 cout << "Value (" << value << ") not found" << endl;
             break;
         }
-        case printInAscendingCommand:
-        {
-            print(1, bsw);
-            cout << endl;
-            break;
-        }
-        case printInDescendingCommand:
-        {
-            print(2, bsw);
-            cout << endl;
-            break;
-        }
-        case printStructureCommand:
-        {
-            print(3, bsw);
-            cout << endl;
-            break;
-        }
         default:
-            cout << "Uncorrect command! To exit input 0" << endl;
-            break;
+        {
+            print(commandNumber, bsw);
+            cout << endl;
+        }
     }
 }
 

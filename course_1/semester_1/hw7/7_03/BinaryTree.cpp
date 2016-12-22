@@ -1,5 +1,7 @@
 #include <iostream>
+
 #include "BinaryTree.h"
+#include "commandNumbers.h"
 
 using namespace std;
 
@@ -218,54 +220,50 @@ void printNode(int mode, Node *parentNode)
 {
     if (parentNode == nullptr)
     {
-        if (mode == 3)
+        if (mode == printStructureCommand)
             cout << " null";
         return;
     }
 
     switch (mode)
     {
-        case 1:
+        case printInAscendingCommand:
         {
             if (parentNode->left == nullptr && parentNode->right == nullptr)
                 cout << parentNode->value << " ";
             else
             {
-                printNode(1, parentNode->left);
+                printNode(printInAscendingCommand, parentNode->left);
                 cout << parentNode->value << " ";
-                printNode(1, parentNode->right);
+                printNode(printInAscendingCommand, parentNode->right);
                 return;
             }
             break;
         }
-        case 2:
+        case printInDescendingCommand:
         {
             if (parentNode->left == nullptr && parentNode->right == nullptr)
                 cout << parentNode->value << " ";
             else
             {
-                printNode(2, parentNode->right);
+                printNode(printInDescendingCommand, parentNode->right);
                 cout << parentNode->value << " ";
-                printNode(2, parentNode->left);
+                printNode(printInDescendingCommand, parentNode->left);
                 return;
             }
             break;
         }
-        case 3:
+        case printStructureCommand:
         {
             cout << " (" << parentNode->value;
-            printNode(3, parentNode->left);
-            printNode(3, parentNode->right);
+            printNode(printStructureCommand, parentNode->left);
+            printNode(printStructureCommand, parentNode->right);
             cout << ")";
             break;
         }
     }
 }
 
-//mode
-//1: in ascending
-//2: in descending
-//3: structure
 void print(int mode, BinaryTree *t)
 {
     if (t->root == nullptr)
@@ -274,43 +272,43 @@ void print(int mode, BinaryTree *t)
     Node *temp = t->root;
 
     switch (mode)
+    {
+        case printInAscendingCommand:
         {
-            case 1:
+            if (temp->left == nullptr && temp->right == nullptr)
             {
-                if (temp->left == nullptr && temp->right == nullptr)
-                {
-                    cout << temp->value;
-                    return;
-                }
-                printNode(1, temp->left);
-                cout << temp->value << " ";
-                printNode(1, temp->right);
-                break;
+                cout << temp->value;
+                return;
             }
-            case 2:
-            {
-                Node *temp = t->root;
-
-                if (temp->left == nullptr && temp->right == nullptr)
-                {
-                    cout << temp->value << " ";
-                    return;
-                }
-
-                printNode(2, temp->right);
-                cout << temp->value << " ";
-                printNode(2, temp->left);
-                break;
-            }
-            case 3:
-            {
-                cout << "(" << temp->value;
-                printNode(3, temp->left);
-                printNode(3, temp->right);
-                cout << ")";
-                break;
-            }
+            printNode(printInAscendingCommand, temp->left);
+            cout << temp->value << " ";
+            printNode(printInAscendingCommand, temp->right);
+            break;
         }
+        case printInDescendingCommand:
+        {
+            Node *temp = t->root;
+
+            if (temp->left == nullptr && temp->right == nullptr)
+            {
+                cout << temp->value << " ";
+                return;
+            }
+
+            printNode(printInDescendingCommand, temp->right);
+            cout << temp->value << " ";
+            printNode(printInDescendingCommand, temp->left);
+            break;
+        }
+        case printStructureCommand:
+        {
+            cout << "(" << temp->value;
+            printNode(printStructureCommand, temp->left);
+            printNode(printStructureCommand, temp->right);
+            cout << ")";
+            break;
+        }
+    }
 }
 
 void deleteNode(Node *n)

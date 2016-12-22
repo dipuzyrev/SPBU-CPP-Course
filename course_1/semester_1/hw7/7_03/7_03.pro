@@ -7,4 +7,5 @@ SOURCES += main.cpp \
     BinaryTree.cpp
 
 HEADERS += \
-    BinaryTree.h
+    BinaryTree.h \
+    commandNumbers.h
