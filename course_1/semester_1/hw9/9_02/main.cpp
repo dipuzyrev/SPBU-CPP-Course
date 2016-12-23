@@ -7,8 +7,8 @@ int main()
     const char *inputFile = "input.txt";
     const char *printMode = "debug"; //or normal
 
-    MapElement *start;
-    MapElement *finish;
+    MapElement *start = nullptr;
+    MapElement *finish = nullptr;
     int size = 0;
 
     int **map = loadFile(inputFile, size, start, finish);

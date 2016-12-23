@@ -16,7 +16,7 @@ enum mapElementStates
     visitedState = 3
 };
 
-PathsArchive *archive;
+PathsArchive *archive = nullptr;
 const int stepLength = 1;
 
 MapElement *createMapElement(int passedLength, int toGoLength, int elementLine, int elementColumn, int previousLine, int previousColumn)
