@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <limits.h>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ int main()
     const int strSize   = 1024;
     const int subSize   = 256;
     const int notation  = 13;
-    const int mod       = 56918;
+    const int mod       = (INT_MAX / (255 * notation)) + 1;
 
     char str[strSize] = {'\0'};
     char subStr[subSize] = {'\0'};
@@ -56,7 +57,10 @@ int main()
         subHash = (notation * subHash + subStr[i]) % mod;
     }
 
-    int largestFactor = pow(notation, subLength - 1) % mod;
+    int largestFactor = notation;
+
+    for (int i = 1; i < subLength - 1; i++)
+        largestFactor = (largestFactor * notation) % mod;
 
     cout << "Indexes:";
 
