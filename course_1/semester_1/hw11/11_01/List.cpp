@@ -51,13 +51,13 @@ void deleteStatesList(StatesList *&l)
     l = nullptr;
 }
 
-void addState(int stateId, StatesList *l)
+bool addState(int stateId, StatesList *l)
 {
     if (isEmpty(l))
     {
         l->head = createListElement(stateId, nullptr);
         l->size++;
-        return;
+        return true;
     }
 
     ListElement *temp = l->head;
@@ -66,11 +66,12 @@ void addState(int stateId, StatesList *l)
         temp = temp->next;
 
     if (stateId == temp->stateId)
-        return;
+        return false;
 
     ListElement *newElem = createListElement(stateId, nullptr);
     temp->next = newElem;
     l->size++;
+    return true;
 }
 
 StatesList *getCopy(StatesList *l)

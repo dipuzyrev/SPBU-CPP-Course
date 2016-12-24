@@ -53,17 +53,22 @@ void deleteTransitionsTable(StatesList **&table, const int size)
     table = nullptr;
 }
 
-void addStates(StatesList *whereAdd, StatesList **transitions, int line, int column)
+bool addStates(StatesList *whereAdd, StatesList **transitions, int line, int column)
 {
     StatesList *whereToGo = getCopy(getTableValue(line, column, transitions));
+    bool result = false;
 
     while (!isEmpty(whereToGo))
     {
         int stateId = extractState(whereToGo);
-        addState(stateId, whereAdd);
+        bool added = addState(stateId, whereAdd);
+
+        if (added)
+            result = true;
     }
 
     deleteStatesList(whereToGo);
+    return result;
 }
 
 void performTransition(int stateId, char symbol, StatesList **transitions, StatesList *nextStates)
@@ -94,14 +99,21 @@ void performTransition(int stateId, char symbol, StatesList **transitions, State
 void performEpsilaTransitions(StatesList **transitions, StatesList *currentStates)
 {
     StatesList *copy = getCopy(currentStates);
+    bool epsilaExist = false;
 
     while (!isEmpty(copy))
     {
         int stateId = extractState(copy);
-        addStates(currentStates, transitions, stateId, epsilaColumn);
+        bool result = addStates(currentStates, transitions, stateId, epsilaColumn);
+
+        if (result)
+            epsilaExist = true;
     }
 
     deleteStatesList(copy);
+
+    if (epsilaExist)
+        performEpsilaTransitions(transitions, currentStates);
 }
 
 int main()
@@ -119,7 +131,7 @@ int main()
 
     char buffer[bufferSize] = {'\0'};
     cout << "Input your number: ";
-    cin >> buffer;
+    cin.getline(buffer, bufferSize);
 
     bool result = false;
 
