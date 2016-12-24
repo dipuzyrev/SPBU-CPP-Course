@@ -9,25 +9,27 @@
 
 using namespace std;
 
+const int bufferSize = 2048;
+
 void loadFile(const char *fileName, List *chars)
 {
     ifstream fin(fileName);
-    char buffer[1024] = {'\0'};
+    char buffer[bufferSize] = {'\0'};
 
-    fin >> buffer;
+    fin.getline(buffer, bufferSize);
 
     while(!fin.eof())
     {
         int i = 0;
-        while (i < 1024 && buffer[i] != '\0')
+        while (i < bufferSize && buffer[i] != '\0')
         {
             addValue(chars, buffer[i]);
             i++;
         }
 
-        addValue(chars, ' ');
+        addValue(chars, '\n');
 
-        fin >> buffer;
+        fin.getline(buffer, bufferSize);
     }
 
     fin.close();
@@ -76,20 +78,20 @@ void encodeFile(const char *inputFile, const char *outputFile, CodesList *codesL
     ifstream fin(inputFile);
     ofstream fout(outputFile, ios::app);
 
-    char buffer[1024] = {'\0'};
-    fin >> buffer;
+    char buffer[bufferSize] = {'\0'};
+    fin.getline(buffer, bufferSize);
 
     while(!fin.eof())
     {
         int i = 0;
-        while (i < 1024 && buffer[i] != '\0')
+        while (i < bufferSize && buffer[i] != '\0')
         {
             fout << getChars(getCode(buffer[i], codesList)) << " ";
             i++;
         }
 
-        fout << getChars(getCode(' ', codesList)) << " ";
-        fin >> buffer;
+        fout << getChars(getCode('\n', codesList)) << " ";
+        fin.getline(buffer, bufferSize);
     }
 
     fout.close();

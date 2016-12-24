@@ -107,7 +107,12 @@ void printNode(ostream &fout, Node *parentNode)
         return;
 
     if (parentNode->left == nullptr && parentNode->right == nullptr)
-        fout << " " << parentNode->value;
+    {
+        if (parentNode->value == '\n')
+            fout << " \\n";
+        else
+            fout << " " << parentNode->value;
+    }
     else
     {
         if (parentNode->value == '\0')
