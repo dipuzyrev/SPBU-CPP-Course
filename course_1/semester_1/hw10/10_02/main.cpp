@@ -7,23 +7,29 @@
 
 using namespace std;
 
+const int bufferSize = 2048;
+
 void decodeFile(const char *inputFile, const char *outputFile, CodesList *codesList)
 {
     ifstream fin(inputFile);
     ofstream fout(outputFile);
 
-    char buffer[1024] = {'\0'};
-    fin.getline(buffer, 1024);
+    char buffer[bufferSize] = {'\0'};
+    fin.getline(buffer, bufferSize);
     fin >> buffer;
 
+    int i = 0;
     while(!fin.eof())
     {
         String *code = createString(buffer);
         char value = getValue(code, codesList);
+
         fout << value;
+
         deleteString(code);
 
         fin >> buffer;
+        i++;
     }
 
     fout.close();
@@ -35,7 +41,7 @@ int main()
     const char *inputFile = "input.txt";
     const char *outputFile = "output.txt";
 
-    Tree *charsTree = loadTreeFromFile(inputFile);
+    Tree *charsTree = loadTreeFromFile(inputFile, bufferSize);
 
     CodesList *codesList = createCodesList();
     fillCodesList(charsTree, codesList);

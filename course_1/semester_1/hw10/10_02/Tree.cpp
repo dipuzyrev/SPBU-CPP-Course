@@ -113,35 +113,19 @@ void printNode(ostream &fout, Node *parentNode)
     if (parentNode == nullptr)
         return;
 
-    if (parentNode->value == '\0')
-        fout << " (null";
+    if (parentNode->left == nullptr && parentNode->right == nullptr)
+        fout << " " << parentNode->value;
     else
-        fout << " (" << parentNode->value;
+    {
+        if (parentNode->value == '\0')
+            fout << " (null";
+        else
+            fout << " (" << parentNode->value;
 
-    printNode(fout, parentNode->left);
-    printNode(fout, parentNode->right);
-    fout << ")";
-}
-
-void printTree(const char *fileName, Tree *t)
-{
-    ofstream fout(fileName);
-
-    if (t->root == nullptr)
-        return;
-
-    Node *temp = t->root;
-
-    if (temp->value == '\0')
-        fout << "(null ";
-    else
-        fout << "(" << temp->value;
-
-    printNode(fout, temp->left);
-    printNode(fout, temp->right);
-    fout << ")" << endl;
-
-    fout.close();
+        printNode(fout, parentNode->left);
+        printNode(fout, parentNode->right);
+        fout << ")";
+    }
 }
 
 void loadToNode(char *buffer, int &temp, int maxIndex, Node *parentNode, Directions direction)
@@ -149,7 +133,7 @@ void loadToNode(char *buffer, int &temp, int maxIndex, Node *parentNode, Directi
     if (temp >= maxIndex)
         return;
 
-    if (buffer[temp] == '(')
+    if (buffer[temp] == '(' && temp < maxIndex && buffer[temp + 1] == 'n')
     {
         temp += 1;
 
@@ -172,29 +156,46 @@ void loadToNode(char *buffer, int &temp, int maxIndex, Node *parentNode, Directi
     {
         if (direction == leftDirection)
         {
-            parentNode->left = createNode(buffer[temp], nullptr, nullptr);
-            temp += 2;
+            if (temp < maxIndex && buffer[temp] == '\\' && buffer[temp + 1] == 'n')
+            {
+                parentNode->left = createNode('\n', nullptr, nullptr);
+                temp += 3;
+            }
+            else
+            {
+                parentNode->left = createNode(buffer[temp], nullptr, nullptr);
+                temp += 2;
+            }
         }
         else
         {
-            parentNode->right = createNode(buffer[temp], nullptr, nullptr);
-
-            temp++;
-            while (temp < maxIndex && (buffer[temp] == ')' || buffer[temp] == ' '))
+            if (temp < maxIndex && buffer[temp] == '\\' && buffer[temp + 1] == 'n')
+            {
+                parentNode->left = createNode('\n', nullptr, nullptr);
+                temp += 2;
+            }
+            else
+            {
+                parentNode->right = createNode(buffer[temp], nullptr, nullptr);
                 temp++;
+            }
+
+            while (temp < maxIndex && buffer[temp] == ')')
+                temp++;
+            temp++;
         }
     }
 }
 
-Tree *loadTreeFromFile(const char *fileName)
+Tree *loadTreeFromFile(const char *fileName, const int bufferSize)
 {
     Tree *charsTree = new Tree;
     charsTree->root = nullptr;
 
     ifstream fin(fileName);
 
-    char buffer[2048] = {'\0'};
-    fin.getline(buffer, 2048);
+    char buffer[bufferSize] = {'\0'};
+    fin.getline(buffer, bufferSize);
 
     int maxIndex = strlen(buffer) - 1;
     int temp = 0;
@@ -211,4 +212,25 @@ Tree *loadTreeFromFile(const char *fileName)
 
     return charsTree;
 
+}
+
+void printTree(const char *fileName, Tree *t)
+{
+    ofstream fout(fileName);
+
+    if (t->root == nullptr)
+        return;
+
+    Node *temp = t->root;
+
+    if (temp->value == '\0')
+        fout << "(null";
+    else
+        fout << "(" << temp->value;
+
+    printNode(fout, temp->left);
+    printNode(fout, temp->right);
+    fout << ")" << endl;
+
+    fout.close();
 }
