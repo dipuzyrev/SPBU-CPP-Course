@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "BinaryTree.h"
-#include "commandNumbers.h"
 
 using namespace std;
 
@@ -216,55 +215,55 @@ bool contains(int value, BinaryTree *t)
     return false;
 }
 
-void printNode(int mode, Node *parentNode)
+void printNode(PrintMode mode, Node *parentNode)
 {
     if (parentNode == nullptr)
     {
-        if (mode == printStructureCommand)
+        if (mode == structure)
             cout << " null";
         return;
     }
 
     switch (mode)
     {
-        case printInAscendingCommand:
+        case inAscending:
         {
             if (parentNode->left == nullptr && parentNode->right == nullptr)
                 cout << parentNode->value << " ";
             else
             {
-                printNode(printInAscendingCommand, parentNode->left);
+                printNode(inAscending, parentNode->left);
                 cout << parentNode->value << " ";
-                printNode(printInAscendingCommand, parentNode->right);
+                printNode(inAscending, parentNode->right);
                 return;
             }
             break;
         }
-        case printInDescendingCommand:
+        case inDescending:
         {
             if (parentNode->left == nullptr && parentNode->right == nullptr)
                 cout << parentNode->value << " ";
             else
             {
-                printNode(printInDescendingCommand, parentNode->right);
+                printNode(inDescending, parentNode->right);
                 cout << parentNode->value << " ";
-                printNode(printInDescendingCommand, parentNode->left);
+                printNode(inDescending, parentNode->left);
                 return;
             }
             break;
         }
-        case printStructureCommand:
+        case structure:
         {
             cout << " (" << parentNode->value;
-            printNode(printStructureCommand, parentNode->left);
-            printNode(printStructureCommand, parentNode->right);
+            printNode(structure, parentNode->left);
+            printNode(structure, parentNode->right);
             cout << ")";
             break;
         }
     }
 }
 
-void print(int mode, BinaryTree *t)
+void print(PrintMode mode, BinaryTree *t)
 {
     if (t->root == nullptr)
         return;
@@ -273,19 +272,19 @@ void print(int mode, BinaryTree *t)
 
     switch (mode)
     {
-        case printInAscendingCommand:
+        case inAscending:
         {
             if (temp->left == nullptr && temp->right == nullptr)
             {
                 cout << temp->value;
                 return;
             }
-            printNode(printInAscendingCommand, temp->left);
+            printNode(inAscending, temp->left);
             cout << temp->value << " ";
-            printNode(printInAscendingCommand, temp->right);
+            printNode(inAscending, temp->right);
             break;
         }
-        case printInDescendingCommand:
+        case inDescending:
         {
             Node *temp = t->root;
 
@@ -295,16 +294,16 @@ void print(int mode, BinaryTree *t)
                 return;
             }
 
-            printNode(printInDescendingCommand, temp->right);
+            printNode(inDescending, temp->right);
             cout << temp->value << " ";
-            printNode(printInDescendingCommand, temp->left);
+            printNode(inDescending, temp->left);
             break;
         }
-        case printStructureCommand:
+        case structure:
         {
             cout << "(" << temp->value;
-            printNode(printStructureCommand, temp->left);
-            printNode(printStructureCommand, temp->right);
+            printNode(structure, temp->left);
+            printNode(structure, temp->right);
             cout << ")";
             break;
         }

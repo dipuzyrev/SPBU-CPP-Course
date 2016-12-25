@@ -1,9 +1,19 @@
 #include <iostream>
 
 #include "BinaryTree.h"
-#include "commandNumbers.h"
 
 using namespace std;
+
+enum Command
+{
+    exitCommand = 0,
+    addValueCommand = 1,
+    removeValueCommand = 2,
+    checkValueCommand = 3,
+    printInAscendingCommand = 4,
+    printInDescendingCommand = 5,
+    printStructureCommand = 6
+};
 
 void performAutomaticTest()
 {
@@ -25,38 +35,38 @@ void performAutomaticTest()
     addValue(9, bsw);
 
     cout << endl << "Print: " << endl;
-    print(1, bsw);
+    print(inAscending, bsw);
     cout << endl;
-    print(2, bsw);
+    print(inDescending, bsw);
     cout << endl;
-    print(3, bsw);
+    print(structure, bsw);
     cout << endl;
 
     cout << endl << "Delete value (4) and print: ";
     deleteValue(4, bsw);
-    print(1, bsw);
+    print(inAscending, bsw);
     cout << endl;
-    print(2, bsw);
+    print(inDescending, bsw);
     cout << endl;
-    print(3, bsw);
+    print(structure, bsw);
     cout << endl;
 
     cout << endl << "Delete value (6) and print: ";
     deleteValue(6, bsw);
-    print(1, bsw);
+    print(inAscending, bsw);
     cout << endl;
-    print(2, bsw);
+    print(inDescending, bsw);
     cout << endl;
-    print(3, bsw);
+    print(structure, bsw);
     cout << endl;
 
     cout << endl << "Delete value (1) and print: ";
     deleteValue(1, bsw);
-    print(1, bsw);
+    print(inAscending, bsw);
     cout << endl;
-    print(2, bsw);
+    print(inDescending, bsw);
     cout << endl;
-    print(3, bsw);
+    print(structure, bsw);
     cout << endl;
 
     cout << endl << "Is value (1) contains in tree? ";
@@ -119,10 +129,23 @@ void performCommand(BinaryTree *bsw, int commandNumber)
                 cout << "Value (" << value << ") not found" << endl;
             break;
         }
-        default:
+        case printInAscendingCommand:
         {
-            print(commandNumber, bsw);
+            print(inAscending, bsw);
             cout << endl;
+            break;
+        }
+        case printInDescendingCommand:
+        {
+            print(inDescending, bsw);
+            cout << endl;
+            break;
+        }
+        case printStructureCommand:
+        {
+            print(structure, bsw);
+            cout << endl;
+            break;
         }
     }
 }
