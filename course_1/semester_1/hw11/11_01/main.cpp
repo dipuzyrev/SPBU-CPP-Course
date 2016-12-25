@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const int statesCount = 7;
+const int statesCount = 8;
 const int columnsCount = 6;
 
 enum columnNumber
@@ -24,24 +24,28 @@ StatesList *getTableValue(int line, int column, StatesList **table)
 
 void fillTransitionsTable(StatesList **table)
 {
-    addState(0, getTableValue(0, 0, table));
-    addState(1, getTableValue(0, 0, table));
+    addState(1, getTableValue(0, plusColumn, table));
+    addState(1, getTableValue(0, minusColumn, table));
+    addState(1, getTableValue(0, epsilaColumn, table));
 
-    addState(2, getTableValue(1, 1, table));
-    addState(3, getTableValue(1, 5, table));
+    addState(1, getTableValue(1, digitColumn, table));
+    addState(2, getTableValue(1, digitColumn, table));
 
-    addState(2, getTableValue(2, 0, table));
-    addState(3, getTableValue(2, 0, table));
+    addState(3, getTableValue(2, dotColumn, table));
+    addState(4, getTableValue(2, epsilaColumn, table));
 
-    addState(4, getTableValue(3, 2, table));
-    addState(6, getTableValue(3, 5, table));
+    addState(3, getTableValue(3, digitColumn, table));
+    addState(4, getTableValue(3, digitColumn, table));
 
-    addState(5, getTableValue(4, 3, table));
-    addState(5, getTableValue(4, 4, table));
-    addState(5, getTableValue(4, 5, table));
+    addState(5, getTableValue(4, eColumn, table));
+    addState(7, getTableValue(4, epsilaColumn, table));
 
-    addState(5, getTableValue(5, 0, table));
-    addState(6, getTableValue(5, 0, table));
+    addState(6, getTableValue(5, plusColumn, table));
+    addState(6, getTableValue(5, minusColumn, table));
+    addState(6, getTableValue(5, epsilaColumn, table));
+
+    addState(6, getTableValue(6, digitColumn, table));
+    addState(7, getTableValue(6, digitColumn, table));
 }
 
 void deleteTransitionsTable(StatesList **&table, const int size)
@@ -119,7 +123,7 @@ void performEpsilaTransitions(StatesList **transitions, StatesList *currentState
 int main()
 {
     //Regular Expression:
-    //digit+ (. digit+)? (E(+ | -)? digit+)?
+    //(+|-)? digit+ (. digit+)? (E(+ | -)? digit+)?
 
     const int bufferSize = 1024;
 
@@ -150,6 +154,7 @@ int main()
         }
 
         StatesList *nextStates = createStatesList();
+        performEpsilaTransitions(transitionsTable, currentStates);
 
         while(!isEmpty(currentStates))
         {
