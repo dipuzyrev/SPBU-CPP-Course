@@ -1,15 +1,12 @@
-*.directory
+**/*.stash
+**/*.user*
+**/*.o
+**/Makefile
+**/*.Debug
+**/debug
+**/*.Release
 
-/*/*/*/*/*
+**/modules.xml
+**/misc.xml
 
-!/*/*/*/*/*.cpp
-!/*/*/*/*/*.h
-!/*/*/*/*/*.txt
-!/*/*/*/*/*.pro
-
-/*/*/*/*/output.txt
-
-!**/.java
-!**/workspace.xml
-!**/vcs.xml
-!**/.iml
+**/out
