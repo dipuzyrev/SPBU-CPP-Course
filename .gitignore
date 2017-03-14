@@ -5,6 +5,7 @@
 **/*.Debug
 **/debug
 **/*.Release
+**/output.txt
 
 **/modules.xml
 **/misc.xml
