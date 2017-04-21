@@ -1,9 +1,7 @@
 package puzyrev.sem2.hw1.task2;
 
 public class Main {
-
     public static void main(String[] args) {
-
         List<String> testList = new List();
 
         System.out.println("Add values to list: \"First\", \"Second\", \"Third\" and \"Fourth\".");

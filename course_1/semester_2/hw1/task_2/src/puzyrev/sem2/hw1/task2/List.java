@@ -1,11 +1,7 @@
 package puzyrev.sem2.hw1.task2;
 
 public class List<Type> {
-    private ListElement head;
-
-    public List() {
-        head = null;
-    }
+    private ListElement head = null;
 
     public void addValue(Type value) {
         ListElement newElement = new ListElement(value, null);
@@ -16,12 +12,12 @@ public class List<Type> {
 
         ListElement temp = head;
 
-        while (temp.getNext() != null && temp.getValue() != value) {
-            temp = temp.getNext();
+        while (temp.next != null && temp.value != value) {
+            temp = temp.next;
         }
 
-        if (temp.getValue() != value) {
-            temp.setNext(newElement);
+        if (temp.value != value) {
+            temp.next = newElement;
         }
     }
 
@@ -30,21 +26,21 @@ public class List<Type> {
             return false;
         }
 
-        if (head.getValue() == value) {
-            head = head.getNext();
+        if (head.value == value) {
+            head = head.next;
             return true;
         }
 
         ListElement temp = head;
 
-        while (temp.getNext() != null && temp.getNext().getValue() != value) {
-            temp = temp.getNext();
+        while (temp.next != null && temp.next.value != value) {
+            temp = temp.next;
         }
 
-        if (temp.getNext() == null) {
+        if (temp.next == null) {
             return false;
         } else {
-            temp.setNext(temp.getNext().getNext());
+            temp.next = temp.next.next;
             return true;
         }
     }
@@ -59,18 +55,6 @@ public class List<Type> {
 
         public ListElement(Type value, ListElement next) {
             this.value = value;
-            this.next = next;
-        }
-
-        public Type getValue() {
-            return value;
-        }
-
-        public ListElement getNext() {
-            return next;
-        }
-
-        public void setNext(ListElement next) {
             this.next = next;
         }
     }
