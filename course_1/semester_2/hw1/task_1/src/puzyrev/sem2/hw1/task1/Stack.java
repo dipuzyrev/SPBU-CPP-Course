@@ -1,9 +1,7 @@
 package puzyrev.sem2.hw1.task1;
 
 public class Stack<Type> {
-
     private class StackElement {
-
         private Type value;
         private StackElement next;
 
@@ -21,11 +19,7 @@ public class Stack<Type> {
         }
     }
 
-    private StackElement head;
-
-    public Stack() {
-        head = null;
-    }
+    private StackElement head = null;
 
     public void push(Type value) {
         head = new StackElement(value, head);
