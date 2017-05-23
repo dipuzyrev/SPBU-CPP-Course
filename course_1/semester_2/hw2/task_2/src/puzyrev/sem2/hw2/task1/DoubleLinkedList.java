@@ -1,5 +1,8 @@
-package puzyrev.sem2.hw2.task2;
+package puzyrev.sem2.hw2.task1;
 
+/**
+ * Double linked List class.
+ */
 public class DoubleLinkedList implements List {
     private Element first = null;
     private Element last = null;
@@ -71,6 +74,9 @@ public class DoubleLinkedList implements List {
         System.out.println();
     }
 
+    /**
+     * List element class.
+     */
     private class Element {
         private int value;
         private Element next;

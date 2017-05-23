@@ -1,5 +1,8 @@
-package puzyrev.sem2.hw2.task2;
+package puzyrev.sem2.hw2.task1;
 
+/**
+ * Single linked List class.
+ */
 public class SingleLinkedList implements List {
     private Element first = null;
 
@@ -58,6 +61,9 @@ public class SingleLinkedList implements List {
         System.out.println();
     }
 
+    /**
+     * List element class.
+     */
     private class Element {
         private int value;
         private Element next;
