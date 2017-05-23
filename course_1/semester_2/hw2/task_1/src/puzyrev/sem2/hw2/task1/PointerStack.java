@@ -1,6 +1,14 @@
 package puzyrev.sem2.hw2.task1;
 
+/**
+ * Pointer-based Stack.
+ *
+ * @param <Type> Stack element type
+ */
 public class PointerStack<Type> implements Stack<Type> {
+    /**
+     * Stack element class.
+     */
     private class StackElement {
         private Type value;
         private StackElement next;

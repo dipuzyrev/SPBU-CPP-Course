@@ -1,5 +1,10 @@
 package puzyrev.sem2.hw2.task1;
 
+/**
+ * Array-based Stack.
+ *
+ * @param <Type> type of Stack element
+ */
 public class ArrayStack<Type> implements Stack<Type> {
     private Type[] array;
     private int capacity = 0;
@@ -10,6 +15,9 @@ public class ArrayStack<Type> implements Stack<Type> {
         array = (Type[])(new Object[capacity]);
     }
 
+    /**
+     * Enlarge array capacity if it is too small.
+     */
     private void enlarge() {
         Type[] newArray = (Type[])(new Object[capacity * 2]);
         System.arraycopy(array, 0, newArray, 0, capacity);
