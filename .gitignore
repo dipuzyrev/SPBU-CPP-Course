@@ -7,8 +7,6 @@
 **/*.Release
 **/output.txt
 
-**/modules.xml
-**/misc.xml
 **/uiDesigner.xml
 
 **/out
