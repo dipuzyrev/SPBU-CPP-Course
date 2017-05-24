@@ -1,5 +1,8 @@
 package puzyrev.sem2.hw5.task1;
 
+/**
+ * Provides functionality to calculate simple expressions.
+ */
 public class Calculator {
     private final int MAX_VALUE = 10;
     private final int MIN_VALUE = 0;
@@ -12,6 +15,13 @@ public class Calculator {
         return MIN_VALUE;
     }
 
+    /**
+     * Apply operation to two numbers.
+     * @param operation
+     * @param firstValue
+     * @param secondValue
+     * @return result of operation
+     */
     public int count(String operation, int firstValue, int secondValue) {
         int result = 0;
 

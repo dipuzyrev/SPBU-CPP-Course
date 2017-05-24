@@ -8,6 +8,9 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for simple calculator.
+ */
 public class Controller implements Initializable {
     private Calculator calculator;
     @FXML
@@ -29,18 +32,27 @@ public class Controller implements Initializable {
         secondValue.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue));
     }
 
-    // Recount result value after menu changes.
+    /**
+     * Recalculate result after operation was changed.
+     * @param actionEvent
+     */
     public void changeOperation(ActionEvent actionEvent) {
         MenuItem temp = (MenuItem) actionEvent.getSource();
         operation.setText(temp.getText());
         setResult();
     }
 
-    // Recount result value after Spinner changes.
+    /**
+     * Recalcolate result after Spinner was changed.
+     * @param mouseEvent
+     */
     public void clickSpinner(MouseEvent mouseEvent) {
         setResult();
     }
 
+    /**
+     * Set calculated result to input.
+     */
     private void setResult() {
         if (operation.getText().equals("")) {
             return;
