@@ -1,5 +1,9 @@
 package puzyrev.sem2.hw4.task1;
 
+/**
+ * List class that can contain not unique elements.
+ * @param <T> type of list elements
+ */
 public class LinkedList<T extends Comparable> implements List<T> {
     protected Element first = null;
     protected int size = 0;

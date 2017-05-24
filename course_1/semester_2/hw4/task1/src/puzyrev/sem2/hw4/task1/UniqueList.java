@@ -1,5 +1,9 @@
 package puzyrev.sem2.hw4.task1;
 
+/**
+ * List class that contain only unique elements.
+ * @param <T> type of list elements
+ */
 public class UniqueList<T extends Comparable> extends LinkedList<T> implements List<T> {
     @Override
     public void addValue(T value) throws ElementDoesExist {
