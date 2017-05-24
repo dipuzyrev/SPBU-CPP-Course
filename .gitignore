@@ -7,8 +7,8 @@
 **/*.Release
 **/output.txt
 
-**/modules.xml
-**/misc.xml
+**/kotlinc.xml
+**/workspace.xml
 **/uiDesigner.xml
 
 **/out
