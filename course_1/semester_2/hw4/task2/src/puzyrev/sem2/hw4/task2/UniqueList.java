@@ -1,5 +1,9 @@
 package puzyrev.sem2.hw4.task2;
 
+/**
+ * List which contains only unique elements.
+ * @param <T> List elements type
+ */
 public class UniqueList<T extends Comparable> implements List<T> {
     private Element first = null;
     private Element last = null;
@@ -100,6 +104,7 @@ public class UniqueList<T extends Comparable> implements List<T> {
         System.out.println();
     }
 
+    /** Class for List elements. */
     private class Element {
         public T value;
         public Element next;
@@ -110,16 +115,16 @@ public class UniqueList<T extends Comparable> implements List<T> {
         }
     }
 
-    // Adding element which already contains.
+    /** Adding element which already contains. */
     public static class ValueAlreadyExist extends RuntimeException {
         public ValueAlreadyExist() {
-            super("Element is contains in the UniqueList");
+            super("Element is already exist in the UniqueList");
         }
     }
-    // Removing element which doesn't contains in list.
+    /** Removing element which doesn't contains in list. */
     public static class ValueNotFound extends RuntimeException {
         public ValueNotFound() {
-            super("Element isn't contains in the UniqueList");
+            super("Element not found in the UniqueList");
         }
     }
 }

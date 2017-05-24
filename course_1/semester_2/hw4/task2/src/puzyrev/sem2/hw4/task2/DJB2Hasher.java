@@ -1,5 +1,8 @@
 package puzyrev.sem2.hw4.task2;
 
+/**
+ * DJB2 hash algorithm.
+ */
 public class DJB2Hasher implements Hasher {
     @Override
     public int getHash(String data, int mod) {

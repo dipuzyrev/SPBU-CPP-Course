@@ -59,7 +59,14 @@ public class Main {
         }
     }
 
-    private static boolean execute(HashTable<String> table, Operation operation, String[] splitResult) {
+    /**
+     * Execute user command.
+     * @param table hash table
+     * @param operation Enum operation to execute
+     * @param splittedCommand splitted user command
+     * @return 'true' if command successfully executed of 'false' if not
+     */
+    private static boolean execute(HashTable<String> table, Operation operation, String[] splittedCommand) {
         switch (operation) {
             case HELP:
                 printHelp();
@@ -68,43 +75,48 @@ public class Main {
                 System.out.println(table.statistics());
                 break;
             case ADD:
-                if (checkArgumentsNumber(splitResult)) {
-                    if (table.contains(splitResult[1])) {
-                        System.out.println("Value '" + splitResult[1] + "' already exist");
+                if (checkArgumentsNumber(splittedCommand)) {
+                    if (table.contains(splittedCommand[1])) {
+                        System.out.println("Value '" + splittedCommand[1] + "' already exist");
                     } else {
-                        table.add(splitResult[1]);
-                        System.out.println("Value '" + splitResult[1] + "' added");
+                        table.add(splittedCommand[1]);
+                        System.out.println("Value '" + splittedCommand[1] + "' added");
                     }
                 }
                 break;
             case FIND:
-                if (checkArgumentsNumber(splitResult)) {
-                    if (table.contains(splitResult[1])) {
-                        System.out.println("Value '" + splitResult[1] + "' was found");
+                if (checkArgumentsNumber(splittedCommand)) {
+                    if (table.contains(splittedCommand[1])) {
+                        System.out.println("Value '" + splittedCommand[1] + "' was found");
                     } else {
-                        System.out.println("Value '" + splitResult[1] + "' not found");
+                        System.out.println("Value '" + splittedCommand[1] + "' not found");
                     }
                 }
                 break;
             case RM:
-                if (checkArgumentsNumber(splitResult)) {
-                    if (table.contains(splitResult[1])) {
-                        table.remove(splitResult[1]);
-                        System.out.println("Value '" + splitResult[1] + "' removed");
+                if (checkArgumentsNumber(splittedCommand)) {
+                    if (table.contains(splittedCommand[1])) {
+                        table.remove(splittedCommand[1]);
+                        System.out.println("Value '" + splittedCommand[1] + "' removed");
                     } else {
-                        System.out.println("Value '" + splitResult[1] + "' not found");
+                        System.out.println("Value '" + splittedCommand[1] + "' not found");
                     }
                 }
                 break;
             case HASHER:
-                if (checkArgumentsNumber(splitResult)) {
-                    changeHashFunc(table, splitResult[1]);
+                if (checkArgumentsNumber(splittedCommand)) {
+                    changeHashFunc(table, splittedCommand[1]);
                 }
                 break;
         }
         return true;
     }
 
+    /**
+     * Check user command.
+     * @param splitted array of user command items
+     * @return 'true' if command right or 'false' if wrong
+     */
     private static boolean checkArgumentsNumber(String[] splitted) {
         if (splitted.length != 2) {
             System.out.println("Syntax error, type 'help' to get usage");
@@ -113,6 +125,11 @@ public class Main {
         return splitted.length == 2;
     }
 
+    /**
+     * Change hash function using in hash table.
+     * @param table hash table
+     * @param func hash algorithm
+     */
     private static void changeHashFunc(HashTable table, String func) {
         try {
             Hash hash = Hash.valueOf(func.toUpperCase());
@@ -130,6 +147,11 @@ public class Main {
         }
     }
 
+    /**
+     * Get operation Enum from string.
+     * @param operation operation from user command
+     * @return Enum operation
+     */
     private static Operation getOperation(String operation) {
         try {
             Operation nativeOperation = Operation.valueOf(operation.toUpperCase());
@@ -139,6 +161,9 @@ public class Main {
         }
     }
 
+    /**
+     * Print commands that can be used by user.
+     */
     private static void printHelp() {
         System.out.println("You can use this commands:");
         System.out.println("exit - to close the program");

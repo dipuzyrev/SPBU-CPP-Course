@@ -1,5 +1,8 @@
 package puzyrev.sem2.hw4.task2;
 
+/**
+ * Sum hash algorithm.
+ */
 public class SumHasher implements Hasher {
     @Override
     public int getHash(String data, int mod) {
