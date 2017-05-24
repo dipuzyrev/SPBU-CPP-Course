@@ -6,9 +6,7 @@ public class HashTable<T extends Comparable> {
 
     private UniqueList<T>[] table;
     private Hasher hasher;
-
     private int addedElements;
-    private int emptyCellsCount;
     private int collisionsCount;
     private int maxListLength;
     private int maxListHash;
@@ -19,7 +17,6 @@ public class HashTable<T extends Comparable> {
         this.hasher = hasher;
 
         addedElements = 0;
-        emptyCellsCount = INIT_SIZE;
         collisionsCount = 0;
         maxListLength = 0;
         maxListHash = 0;
@@ -38,7 +35,6 @@ public class HashTable<T extends Comparable> {
             table[hash].add(value);
 
             addedElements++;
-            emptyCellsCount--;
 
             if (maxListLength == 0) {
                 maxListLength = 1;
@@ -73,7 +69,6 @@ public class HashTable<T extends Comparable> {
         table[hash].remove(value);
 
         addedElements--;
-        emptyCellsCount += (table[hash].size() == 0) ? 1 : 0;
         collisionsCount -= (table[hash].size() == 1) ? 1 : 0;
         maxListLength = (hash != maxListHash) ? maxListLength : getMaxListLength();
     }
@@ -119,7 +114,6 @@ public class HashTable<T extends Comparable> {
         int oldSize = size;
 
         addedElements = 0;
-        emptyCellsCount = oldSize * 2;
         collisionsCount = 0;
         maxListLength = 0;
         size  = oldSize * 2;
