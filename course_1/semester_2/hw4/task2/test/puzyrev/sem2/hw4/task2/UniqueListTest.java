@@ -35,15 +35,10 @@ class UniqueListTest {
         }
         assertTrue(list.size() == 10);
 
-        // Add similar values to throw exception:
-        boolean thrown = false;
-        try {
+        list.add(1);
+        assertThrows(UniqueList.ValueAlreadyExist.class, () -> {
             list.add(1);
-            list.add(1);
-        } catch (RuntimeException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        });
     }
 
     @Test
@@ -58,19 +53,15 @@ class UniqueListTest {
         }
         assertTrue(list.size() == 10);
 
-        // Removing value which don't contains:
-        boolean thrown = false;
-        try {
+        assertThrows(UniqueList.ValueNotFound.class, () -> {
             list.remove(elements[0] - 1);
-        } catch (RuntimeException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        });
 
         // Remove all elements and check if list is empty:
         for (int i = 0; i < elements.length; i++) {
             list.remove(elements[i]);
         }
+
         assertTrue(list.isEmpty());
     }
 
