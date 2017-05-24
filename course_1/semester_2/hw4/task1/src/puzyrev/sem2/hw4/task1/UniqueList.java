@@ -6,17 +6,17 @@ package puzyrev.sem2.hw4.task1;
  */
 public class UniqueList<T extends Comparable> extends LinkedList<T> implements List<T> {
     @Override
-    public void addValue(T value) throws ElementDoesExist {
+    public void addValue(T value) throws ElementAlreadyExist {
         if (doesExist(value)) {
-            throw new ElementDoesExist();
+            throw new ElementAlreadyExist();
         }
         super.addValue(value);
     }
 
     @Override
-    public void deleteValue(T value) throws ElementDoesntExist {
+    public void deleteValue(T value) throws ElementNotFound {
         if (!doesExist(value)) {
-            throw new ElementDoesntExist();
+            throw new ElementNotFound();
         }
         super.deleteValue(value);
     }
@@ -34,15 +34,15 @@ public class UniqueList<T extends Comparable> extends LinkedList<T> implements L
     }
 
     /** Adding element which already exists. */
-    public static class ElementDoesExist extends RuntimeException {
-        public ElementDoesExist() {
+    public static class ElementAlreadyExist extends RuntimeException {
+        public ElementAlreadyExist() {
             super("Element is exist in the UniqueList");
         }
     }
     /** Removing element which doesn't exist. */
-    public static class ElementDoesntExist extends RuntimeException {
-        public ElementDoesntExist() {
-            super("Element isn't exist in the UniqueList");
+    public static class ElementNotFound extends RuntimeException {
+        public ElementNotFound() {
+            super("Element not found in the UniqueList");
         }
     }
 }
