@@ -36,7 +36,7 @@ public class UniqueList<T extends Comparable> extends LinkedList<T> implements L
     /** Adding element which already exists. */
     public static class ElementAlreadyExist extends RuntimeException {
         public ElementAlreadyExist() {
-            super("Element is exist in the UniqueList");
+            super("Element is already exist in the UniqueList");
         }
     }
     /** Removing element which doesn't exist. */

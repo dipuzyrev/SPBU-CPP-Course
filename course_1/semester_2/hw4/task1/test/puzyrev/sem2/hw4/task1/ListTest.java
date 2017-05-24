@@ -73,16 +73,11 @@ public class ListTest {
 
     @Test
     public void ElementNotExistTest() {
-        boolean thrown = false;
-
         List<Integer> list = new UniqueList<>();
         int toRemove = random.nextInt();
 
-        try {
+        assertThrows(UniqueList.ElementNotFound.class, () -> {
             list.deleteValue(toRemove);
-        } catch (Exception e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
+        });
     }
 }
