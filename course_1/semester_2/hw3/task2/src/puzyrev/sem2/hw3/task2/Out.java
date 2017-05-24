@@ -1,6 +1,17 @@
 package puzyrev.sem2.hw3.task2;
 
+/**
+ * Abstract class with method for cycle array printing.
+ */
 abstract class Out {
+
+    /**
+     * Cycle converting 2-dimensional array to 1-dimensional.
+     *
+     * @param array 2-dimensional array for converting
+     * @return converted 1-dimensional array
+     * @throws NullPointerException if array is empty
+     */
     public int[] getResultArray(int[][] array) throws NullPointerException {
         int length = array.length * array.length;
         int[] result = new int[length];
