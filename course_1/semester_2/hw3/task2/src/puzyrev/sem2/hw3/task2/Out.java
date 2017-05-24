@@ -1,11 +1,19 @@
 package puzyrev.sem2.hw3.task2;
 
-public class ConsoleOutput implements Output {
-    public void print(int[][] array) {
-        int center = (array.length - 1) / 2;
+abstract class Out {
+    public int[] getResultArray(int[][] array) throws NullPointerException {
+        int length = array.length * array.length;
+        int[] result = new int[length];
 
-        System.out.print(array[center][center]);
+        if (length == 0) {
+            throw new NullPointerException("Array is empty!");
+        }
+
+        int center = (array.length - 1) / 2;
+        result[0] = array[center][center];
+
         int startCol = center;
+        int temp = 1;
 
         for (int i = center - 1; i >= 0; i--) {
             int pathLength = (center - i) * 2 + 1;
@@ -15,25 +23,31 @@ public class ConsoleOutput implements Output {
 
             //print top line
             for (int j = startCol; j <= rightSide; j++) {
-                System.out.print(" " + array[i][j]);
+                result[temp] = array[i][j];
+                temp++;
             }
 
             //print right line
             for (int j = i + 1; j <= bottomSide; j++) {
-                System.out.print(" " + array[j][rightSide]);
+                result[temp] = array[j][rightSide];
+                temp++;
             }
 
             //print bottom line
             for (int j = rightSide - 1; j >= leftSide; j--) {
-                System.out.print(" " + array[bottomSide][j]);
+                result[temp] = array[bottomSide][j];
+                temp++;
             }
 
             //print left side
             for (int j = bottomSide - 1; j >= i; j--) {
-                System.out.print(" " + array[j][leftSide]);
+                result[temp] = array[j][leftSide];
+                temp++;
             }
 
             startCol = bottomSide;
         }
+
+        return result;
     }
 }

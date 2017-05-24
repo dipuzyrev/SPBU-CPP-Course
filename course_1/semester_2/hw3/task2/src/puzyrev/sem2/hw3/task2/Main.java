@@ -1,20 +1,19 @@
 package puzyrev.sem2.hw3.task2;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int array[][] = inputArray();
         System.out.println("Where you want to print your array? (console/file): ");
         String where = sc.nextLine();
         if (where.equals("console")) {
-            Output outConsole = new ConsoleOutput();
-            outConsole.print(array);
+            ConsoleOut out = new ConsoleOut();
+            out.print(array);
         } else if (where.equals("file")) {
-            Output outFile = new FileOutput();
-            outFile.print(array);
+            FileOut out = new FileOut();
+            out.print(array);
         }
     }
 
