@@ -1,7 +1,5 @@
 package puzyrev.sem2.hw6.task1;
 
-import java.io.*;
-
 public class Main {
     public static void main(String[] args) {
         Tree tree = new Tree("input.txt");
