@@ -12,24 +12,6 @@ public abstract class Operator implements Node {
         return "( " + value + " " + leftChild.convertToString() + " " + rightChild.convertToString() + " )";
     }
 
-    public float calculate() {
-        float leftCalculated = leftChild.calculate();
-        float rightCalculated = rightChild.calculate();
-
-        switch (value) {
-            case '+':
-                return leftCalculated + rightCalculated;
-            case '-':
-                return leftCalculated - rightCalculated;
-            case '*':
-                return leftCalculated * rightCalculated;
-            case '/':
-                return leftCalculated / rightCalculated;
-            default:
-                return 0;
-        }
-    }
-
     /**
      * Set left child of node.
      * @param leftChild node to set

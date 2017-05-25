@@ -11,5 +11,11 @@ public class Minus extends Operator implements Node {
     public Minus() {
         this.value = '-';
     }
+
+    public float calculate() {
+        float leftCalculated = leftChild.calculate();
+        float rightCalculated = rightChild.calculate();
+        return leftCalculated - rightCalculated;
+    }
 }
 

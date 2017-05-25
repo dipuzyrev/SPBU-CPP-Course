@@ -11,4 +11,10 @@ public class Divide extends Operator implements Node {
     public Divide() {
         this.value = '/';
     }
+
+    public float calculate() {
+        float leftCalculated = leftChild.calculate();
+        float rightCalculated = rightChild.calculate();
+        return leftCalculated / rightCalculated;
+    }
 }

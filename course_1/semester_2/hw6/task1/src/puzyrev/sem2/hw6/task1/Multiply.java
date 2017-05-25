@@ -11,4 +11,10 @@ public class Multiply extends Operator implements Node {
     public Multiply() {
         this.value = '*';
     }
+
+    public float calculate() {
+        float leftCalculated = leftChild.calculate();
+        float rightCalculated = rightChild.calculate();
+        return leftCalculated * rightCalculated;
+    }
 }
