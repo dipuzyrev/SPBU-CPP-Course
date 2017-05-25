@@ -2,8 +2,12 @@ package puzyrev.sem2.hw6.task2;
 
 import java.util.*;
 
+/**
+ * Set data structure through array.
+ * @param <T> type of Set elements
+ */
 public class ArraySet<T> implements Set<T> {
-    /** Array with array elements. */
+    /** Array with Set elements. */
     private ArrayList<T> array = new ArrayList<>();
 
     @Override
