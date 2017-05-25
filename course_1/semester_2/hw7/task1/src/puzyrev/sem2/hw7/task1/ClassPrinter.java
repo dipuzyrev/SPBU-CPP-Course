@@ -2,10 +2,16 @@ package puzyrev.sem2.hw7.task1;
 
 import java.lang.reflect.*;
 
+/**
+ * Printing internal class structure.
+ */
 public class ClassPrinter {
-    private static String testField1;
-    private int testField2;
 
+    /**
+     * Print class.
+     * @param clazz class to print
+     * @return class structure in string
+     */
     public String printClass(Class clazz) {
         return getClassInfo(clazz, "    ");
     }
