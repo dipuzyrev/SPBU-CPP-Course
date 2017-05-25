@@ -104,7 +104,7 @@ public class Tree {
      * @return 'true' if operation or 'false' if not
      */
     private boolean isOperation(char value) {
-        if (value == '+' || value == '-' || value == '*' || value == '/') {
+        if ((int) value <  '0' || (int) value > '9') {
             return true;
         } else {
             return false;
