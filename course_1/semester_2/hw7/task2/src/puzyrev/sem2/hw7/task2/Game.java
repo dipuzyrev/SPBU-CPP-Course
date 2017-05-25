@@ -35,7 +35,7 @@ public class Game {
 
     private Value getType() {
         if (last != null) {
-            if (last.getText() == "X") {
+            if (last.getText().equals("X")) {
                 return Value.ZERO;
             } else {
                 return Value.CROSS;
