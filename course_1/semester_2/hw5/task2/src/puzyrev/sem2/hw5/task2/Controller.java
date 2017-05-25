@@ -2,11 +2,7 @@ package puzyrev.sem2.hw5.task2;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class Controller {
     private StackCalculator calculator;
