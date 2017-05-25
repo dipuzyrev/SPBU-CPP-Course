@@ -1,0 +1,13 @@
+public class ClassPrinter {
+
+    public ClassPrinter();
+
+    private void getClassSignature(StringBuilder arg0, Class arg1);
+    private void getConstructorSignature(StringBuilder arg0, Class arg1, Constructor arg2);
+    public String printClass(Class arg0);
+    private void getClassInfo(StringBuilder arg0, Class arg1, String arg2);
+    private boolean isNumber(String arg0);
+    private void getParametersList(StringBuilder arg0, Parameter[] arg1);
+    private void getFieldSignature(StringBuilder arg0, Class arg1, Field arg2);
+    private void getMethodSignature(StringBuilder arg0, Class arg1, Method arg2);
+}

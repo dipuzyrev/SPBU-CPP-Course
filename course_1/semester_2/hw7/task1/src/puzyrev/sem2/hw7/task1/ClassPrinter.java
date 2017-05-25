@@ -14,55 +14,59 @@ public class ClassPrinter {
      */
     public String printClass(Class clazz) {
         StringBuilder result = new StringBuilder();
-        getClassInfo(result, clazz, "    ");
+        getClassInfo(result, clazz, "");
         return result.toString();
     }
 
     private void getClassInfo(StringBuilder builder, Class clazz, String tab) {
+        builder.append(tab);
         getClassSignature(builder, clazz);
-        builder.append("{\n");
+        builder.append("{");
 
         Field[] fields = clazz.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             if (!isNumber(fields[i].getName().replace("this$", ""))) {
-                builder.append("    ");
-                getFieldSignature(builder, clazz, fields[i]);
                 builder.append("\n");
+                builder.append(tab + "    ");
+                getFieldSignature(builder, clazz, fields[i]);
             }
         }
 
-        Constructor[] constructors = clazz.getDeclaredConstructors();
-        if(constructors.length != 0) {
-            builder.append("\n");
-        }
-
-        for (int i = 0; i < constructors.length; i++) {
-            builder.append(tab);
-            getConstructorSignature(builder, clazz, constructors[i]);
-            builder.append("\n");
-        }
-
-        Method[] methods = clazz.getDeclaredMethods();
+        Constructor[] constructors = clazz.getConstructors();
         if (constructors.length != 0) {
             builder.append("\n");
         }
-
-        for (int i = 0; i < methods.length; i++) {
-            builder.append(tab);
-            getMethodSignature(builder, clazz, methods[i]);
+        for (int i = 0; i < constructors.length; i++) {
             builder.append("\n");
+            builder.append(tab + "    ");
+            getConstructorSignature(builder, clazz, constructors[i]);
+        }
+
+        Method[] methods = clazz.getDeclaredMethods();
+        if (methods.length != 0) {
+            builder.append("\n");
+        }
+        for (int i = 0; i < methods.length; i++) {
+            builder.append("\n");
+            builder.append(tab + "    ");
+            getMethodSignature(builder, clazz, methods[i]);
         }
 
         Class[] classes = clazz.getDeclaredClasses();
+        if (classes.length != 0) {
+            builder.append("\n");
+        }
         if (constructors.length != 0) {
             builder.append("\n");
         }
 
         for (int i = 0; i < classes.length; i++) {
-            getClassInfo(builder, classes[i], tab);
+            getClassInfo(builder, classes[i], tab + "    ");
+            builder.append("\n");
         }
 
-        builder.append("{\n");
+        builder.append(tab);
+        builder.append("}");
     }
 
     private void getClassSignature(StringBuilder builder, Class clazz) {
@@ -72,7 +76,7 @@ public class ClassPrinter {
             builder.append(modifiers.replace("abstract ", ""));
         } else {
             builder.append(modifiers);
-            builder.append("class");
+            builder.append("class ");
         }
 
         builder.append(clazz.getSimpleName());
@@ -118,7 +122,7 @@ public class ClassPrinter {
         builder.append(" ");
         builder.append(clazz.getSimpleName());
         builder.append("(");
-        builder.append(constructor.getParameters());
+        getParametersList(builder, constructor.getParameters());
         builder.append(");");
     }
 
