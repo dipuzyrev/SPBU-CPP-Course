@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+/**
+ * Controller for calculator.
+ */
 public class Controller {
     private StackCalculator calculator;
     @FXML
@@ -15,6 +18,10 @@ public class Controller {
         calculator = new StackCalculator();
     }
 
+    /**
+     * Calculate result when pressed any button.
+     * @param actionEvent action event
+     */
     public void clickButton(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
 
