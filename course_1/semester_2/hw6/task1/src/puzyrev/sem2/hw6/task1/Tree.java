@@ -14,7 +14,7 @@ public class Tree {
      * @param fileName file to parse
      */
     public Tree(String fileName) {
-        String expression = null;
+        String expression = "";
 
         try(FileReader reader = new FileReader(fileName)) {
             BufferedReader in = new BufferedReader(reader);
