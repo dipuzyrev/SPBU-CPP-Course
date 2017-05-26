@@ -28,26 +28,42 @@ class HashTableTest {
     }
 
     @Test
-    public void testFirstHasher() {
-        testHashTable(new DJB2Hasher());
-    }
-
-    @Test
-    public void testSecondHasher() {
-        testHashTable(new SumHasher());
-    }
-
-    private void testHashTable(Hasher hasher) {
-        HashTable<Integer> testTable = new HashTable<>(hasher);
+    public void testAdd() {
+        HashTable<Integer> testTable = new HashTable<>(new DJB2Hasher());
 
         for (int i = 0; i < ARRAY_SIZE; i++) {
             testTable.add(testArray[i]);
             assertTrue(testTable.contains(testArray[i]));
         }
+    }
+
+    @Test
+    public void testRemove() {
+        HashTable<Integer> testTable = new HashTable<>(new DJB2Hasher());
 
         for (int i = 0; i < ARRAY_SIZE; i++) {
             testTable.remove(testArray[i]);
             assertTrue(!testTable.contains(testArray[i]));
         }
+    }
+
+    @Test
+    public void testHasherChange() {
+        HashTable<Integer> testTable = new HashTable<>(new DJB2Hasher());
+        SumHasher hash = new SumHasher();
+        testTable.changeHasher(hash);
+
+        assertTrue(testTable.getHasher().equals(hash));
+    }
+
+    @Test
+    public void testResizing() {
+        HashTable<Integer> testTable = new HashTable<>(new DJB2Hasher());
+        testTable.add(1);
+
+        int size = testTable.getSize();
+        testTable.resize();
+
+        assertTrue(size < testTable.getSize());
     }
 }

@@ -109,7 +109,7 @@ public class HashTable<T extends Comparable> {
         return (float) addedElements / size;
     }
 
-    private void resize() {
+    public void resize() {
         UniqueList<T>[] oldTable = table;
         int oldSize = size;
 
@@ -121,12 +121,20 @@ public class HashTable<T extends Comparable> {
         table = new UniqueList[size];
 
         for (int i = 0; i < oldSize; i++) {
-            int listSize = oldTable[i].size();
+            int listSize = (oldTable[i] == null) ? 0 : oldTable[i].size();
 
             for (int j = 0; j < listSize; j++) {
                 T value = oldTable[i].extractFirst();
                 add(value);
             }
         }
+    }
+
+    public Hasher getHasher() {
+        return hasher;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
