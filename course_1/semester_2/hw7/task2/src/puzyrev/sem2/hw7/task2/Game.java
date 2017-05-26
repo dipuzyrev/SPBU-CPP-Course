@@ -4,6 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import java.util.ArrayList;
 
+/**
+ * Tic-tac-toe game control.
+ */
 public class Game {
     private boolean ended = false;
 
@@ -16,11 +19,19 @@ public class Game {
     private ArrayList<Label> zeros;
     private Label last = null;
 
+    /**
+     * Init showed crosses and zeros.
+     */
     public Game() {
         crosses = new ArrayList<>();
         zeros = new ArrayList<>();
     }
 
+    /**
+     * Put one more showed item.
+     * @param field clicked label
+     * @return text to put in clicked label ('X' or 'O')
+     */
     public String putValue(Label field) {
         if (!ended && field.getText().equals("")) {
             Value type = getType();
@@ -31,6 +42,27 @@ public class Game {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Check if game is ended.
+     * @return list of labels to colorize or 'null' if game is continuing
+     */
+    public Label[] checkResults() {
+        Label[] checkCrosses = checkResult(Value.CROSS);
+
+        if (checkCrosses != null) {
+            ended = true;
+            return checkCrosses;
+        } else {
+            Label[] checkZeros = checkResult(Value.ZERO);
+            if (checkZeros != null) {
+                ended = true;
+                return checkZeros;
+            }
+        }
+
+        return null;
     }
 
     private Value getType() {
@@ -53,23 +85,6 @@ public class Game {
         }
 
         last = label;
-    }
-
-    public Label[] checkResults() {
-        Label[] checkCrosses = checkResult(Value.CROSS);
-
-        if (checkCrosses != null) {
-            ended = true;
-            return checkCrosses;
-        } else {
-            Label[] checkZeros = checkResult(Value.ZERO);
-            if (checkZeros != null) {
-                ended = true;
-                return checkZeros;
-            }
-        }
-
-        return null;
     }
 
     private Label[] checkResult(Value type) {

@@ -1,13 +1,15 @@
 package puzyrev.sem2.hw7.task2;
 
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for Tic-tac-toe game.
+ */
 public class Controller implements Initializable {
     private Game game;
 
@@ -16,6 +18,10 @@ public class Controller implements Initializable {
         game = new Game();
     }
 
+    /**
+     * Handle label clicking.
+     * @param event mouse event
+     */
     public void putValue(MouseEvent event) {
         Label field = (Label) event.getSource();
 
