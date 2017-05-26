@@ -7,14 +7,14 @@ public interface List {
     /**
      * Add element to list.
      *
-     * @param value
+     * @param value element value
      */
     void addValue(int value);
 
     /**
      * Delete element from list.
      *
-     * @param value
+     * @param value element value
      */
     void deleteValue(int value);
 
