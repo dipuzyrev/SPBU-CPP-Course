@@ -1,4 +1,4 @@
-package puzyrev.sem2.hw2.task1;
+package puzyrev.sem2.hw2.task2;
 
 import java.util.Random;
 
