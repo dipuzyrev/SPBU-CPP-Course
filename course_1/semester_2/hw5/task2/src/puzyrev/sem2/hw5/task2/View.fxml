@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane minHeight="424.0" minWidth="330.0" style="-fx-background-color: #b7c1b6;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="puzyrev.sem2.hw5.task2.Controller">
+   <children>
+      <Label fx:id="secondInput" alignment="CENTER_RIGHT" minHeight="50.0" minWidth="330.0" textAlignment="RIGHT" textFill="#4d4d4d">
+         <font>
+            <Font name="Roboto Mono" size="18.0" />
+         </font>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
+      </Label>
+      <Label fx:id="mainInput" alignment="CENTER_RIGHT" layoutY="50.0" minHeight="100.0" minWidth="330.0" text="0" textAlignment="RIGHT" textFill="#252525">
+         <font>
+            <Font name="Roboto Mono" size="28.0" />
+         </font>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
+      </Label>
+      <Button layoutX="4.0" layoutY="154.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #4d565d; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="+" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font></Button>
+      <Button layoutX="86.0" layoutY="154.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #4d565d; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="-" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="168.0" layoutY="154.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #4d565d; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="*" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="250.0" layoutY="154.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #4d565d; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="/" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="4.0" layoutY="208.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="7" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="86.0" layoutY="208.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="8" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="168.0" layoutY="208.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="9" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="250.0" layoutY="208.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="C" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="4.0" layoutY="262.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="4" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="86.0" layoutY="262.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="5" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="168.0" layoutY="262.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="6" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="250.0" layoutY="262.0" minHeight="158.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #e84c3d; -fx-border-width: 0; -fx-border-radius: 0;" text="=" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="4.0" layoutY="316.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="1" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="86.0" layoutY="316.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="2" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="168.0" layoutY="316.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="3" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="4.0" layoutY="370.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="0" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="86.0" layoutY="370.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="00" textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="168.0" layoutY="370.0" minHeight="50.0" minWidth="78.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #c8d0c3; -fx-border-width: 0; -fx-border-radius: 0 0 0 0;" text="." textFill="#4d565d">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Roboto Mono" size="24.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
